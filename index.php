@@ -4,6 +4,7 @@
     include "Models/Model.php";
     include "Controllers/Controller.php";
     include "Controllers/DevisController.php";
+    include "Controllers/ClientController.php";
 
     session_start();
 
