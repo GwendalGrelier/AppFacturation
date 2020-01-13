@@ -1,7 +1,7 @@
 <?php
 
-include "Models/articleModel.php";
-include "Views/articleView.php";
+include "Models/ArticleModel.php";
+include "Views/ArticleView.php";
 
 class articleController extends Controller
 {
