@@ -59,10 +59,10 @@ CREATE TABLE facture(
 #------------------------------------------------------------
 
 CREATE TABLE article(
-        id       Int  Auto_increment  NOT NULL ,
-        article  Varchar (255) NOT NULL ,
-        quantite Int NOT NULL ,
-        prix_u   Float NOT NULL
+        id     Int  Auto_increment  NOT NULL ,
+        nom    Varchar (255) NOT NULL ,
+        qty    Int NOT NULL ,
+        prix_u Float NOT NULL
 	,CONSTRAINT article_PK PRIMARY KEY (id)
 )ENGINE=InnoDB;
 
