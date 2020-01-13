@@ -3,12 +3,12 @@
 include "Models/ArticleModel.php";
 include "Views/ArticleView.php";
 
-class articleController extends Controller
+class ArticleController extends Controller
 {
     public function __construct()
     {
-        $this->model = new articleModel();
-        $this->view = new articleView();
+        $this->model = new ArticleModel();
+        $this->view = new ArticleView();
     }
 
     
