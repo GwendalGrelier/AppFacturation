@@ -1,6 +1,6 @@
 <?php
     
-    class articleModel extends Model {
+    class ArticleModel extends Model {
 
        
 
