@@ -10,6 +10,6 @@ class ArticleController extends Controller
         $this->model = new ArticleModel();
         $this->view = new ArticleView();
     }
-// sakyt
+
     
 }
