@@ -1,9 +1,12 @@
 <?php
-//  salut
+
     include "Views/View.php";
     include "Models/Model.php";
     include "Controllers/Controller.php";
+    include "Controllers/ArticleController.php";
+  
     include "Controllers/DevisController.php";
+    include "Controllers/ClientController.php";
 
     session_start();
 
