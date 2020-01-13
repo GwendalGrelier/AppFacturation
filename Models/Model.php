@@ -41,6 +41,19 @@ abstract class Model
            
            return $devisList;
        }
+    /**
+     * Gets the list of every Quote
+     *
+     * @return array
+     */
+    public function getArticleList()
+       {
+           $request = "SELECT * FROM article";
+           $request = $this->connexion->query($request);
+           $articlelist = $request->fetchAll(PDO::FETCH_ASSOC);
+           var_dump($articlelist);
+           return $articlelist;
+       }
 
    
 }

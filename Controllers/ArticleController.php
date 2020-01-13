@@ -11,5 +11,13 @@ class ArticleController extends Controller
         $this->view = new ArticleView();
     }
 
+
+    public function displayMainPage(){
+        $this->view->displayHome();
+    }
     
+    public function displayListarticle(){
+        $this->model->getArticleList();
+        $this->view->displayHome();
+    }
 }
