@@ -14,7 +14,6 @@ CREATE TABLE client(
         n_tva                Varchar (255) NOT NULL ,
         siret                Varchar (255) NOT NULL ,
         notes                Varchar (255) NOT NULL ,
-        ca_annuel            Int NOT NULL ,
         liste_devis          Int NOT NULL ,
         nom_societe          Varchar (255) NOT NULL
 	,CONSTRAINT client_PK PRIMARY KEY (id)
@@ -26,13 +25,16 @@ CREATE TABLE client(
 #------------------------------------------------------------
 
 CREATE TABLE devis(
-        id            Int  Auto_increment  NOT NULL ,
-        articles      Int NOT NULL ,
-        remise_com    Float NOT NULL ,
-        taux_retard   Float NOT NULL ,
-        date_echeance Date NOT NULL ,
-        num_facture   Int NOT NULL ,
-        id_client     Int NOT NULL
+        id              Int  Auto_increment  NOT NULL ,
+        articles        Int NOT NULL ,
+        remise_com      Float NOT NULL ,
+        taux_retard     Float NOT NULL ,
+        date_echeance   Date NOT NULL ,
+        num_facture     Int NOT NULL ,
+        date_creation   Date NOT NULL ,
+        statut_valider  Bool NOT NULL ,
+        date_validation Date NOT NULL ,
+        id_client       Int NOT NULL
 	,CONSTRAINT devis_PK PRIMARY KEY (id)
 
 	,CONSTRAINT devis_client_FK FOREIGN KEY (id_client) REFERENCES client(id)
@@ -44,9 +46,8 @@ CREATE TABLE devis(
 #------------------------------------------------------------
 
 CREATE TABLE facture(
-        id               Int  Auto_increment  NOT NULL ,
-        data_acceptation Date NOT NULL ,
-        id_devis         Int NOT NULL
+        id       Int  Auto_increment  NOT NULL ,
+        id_devis Int NOT NULL
 	,CONSTRAINT facture_PK PRIMARY KEY (id)
 
 	,CONSTRAINT facture_devis_FK FOREIGN KEY (id_devis) REFERENCES devis(id)
