@@ -1,7 +1,7 @@
 <?php
     
 
-    /**
+    /**d
      * undocumented class
      */
     class ArticleView extends View {
