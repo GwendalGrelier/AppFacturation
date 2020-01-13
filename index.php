@@ -29,7 +29,7 @@
 
     // Get requested controller
     // Default is NewsController
-    $requested_controller = "NewsController";
+    $requested_controller = "DevisController";
     if (isset($_GET) && !empty($_GET["controller"])) {
         foreach ($controller_list as $controller) {
             if ($_GET["controller"] == $controller['name']) {
