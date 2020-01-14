@@ -17,7 +17,7 @@ class ClientController extends Controller
      * @return void
      */
     public function displayMainPage() {
-        $clientsList = $this->model->getClients();
+        $clientsList = $this->model->getClientsList();
         $this->view->displayMainPage($clientsList);
     }
 
