@@ -151,7 +151,6 @@ class DevisModel extends Model
     }
 }
 
-<<<<<<< HEAD
        
 
      
@@ -201,5 +200,3 @@ class DevisModel extends Model
             
         }
     }
-=======
->>>>>>> c0ca5e6dc98743628f63747623300ee4a721b4a6
