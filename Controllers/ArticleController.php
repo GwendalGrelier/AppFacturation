@@ -26,7 +26,12 @@ class ArticleController extends Controller
 
     public function addArticle(){
 
-        $this->model->addArticle();
         $this->view->addArticle();
+    }
+
+    public function addBDD(){
+
+        $this->model->addBDD();
+        header('location:index.php?controller=article');
     }
 }

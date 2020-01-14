@@ -15,7 +15,7 @@
             $this->page .= "<tr>";
             $this->page .= "<th>Nom de l'article</td>";
             $this->page .= "<th>Quantité </td>";
-            $this->page .= "<th>prix unité</td>";
+            $this->page .= "<th>prix unité du lot</td>";
             $this->page .= "<th>Action </td>";
             $this->page .= "<th></td>";
             $this->page .= "<th></td>";
@@ -49,7 +49,13 @@
         }
 
         public function addArticle() {
-            
+            $this->page .= "<h1>J'ajoute un Article dans le stock via le formulaire</h1>";
+            $this->page .= file_get_contents('pages/forms/formAddArticle.html');
+            $this->page = str_replace('{action}','addBDD',$this->page);
+            $this->page = str_replace('{name}','',$this->page);
+            $this->page = str_replace('{qty}','',$this->page);
+            $this->page = str_replace('{prix_u}','',$this->page);
+            $this->displayPage();
         }
     }
     

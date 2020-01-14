@@ -17,7 +17,7 @@ class ClientController extends Controller
      * @return void
      */
     public function displayMainPage() {
-        $clientsList = $this->model->getClients();
+        $clientsList = $this->model->getClientsList();
         $this->view->displayMainPage($clientsList);
     }
 
@@ -38,6 +38,7 @@ class ClientController extends Controller
      */
     public function addClientToDB() {
         $this->model->addClientToDB();
+        header('location: index.php?controller=client');
     }
 
     /**
@@ -47,6 +48,7 @@ class ClientController extends Controller
      */
     public function deleteClientFromDB() {
         $this->model->deleteClientFromDB();
+        header('location: index.php?controller=client');
     }
 
     /**
@@ -67,5 +69,6 @@ class ClientController extends Controller
      */
     public function updateClientToDB() {
         $this->model->updateClientToDB();
+        header('location: index.php?controller=client');
     }
 }

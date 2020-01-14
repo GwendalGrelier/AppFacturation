@@ -106,6 +106,5 @@ abstract class Model
         return $clientsList;
 
     }
-    
    
 }
