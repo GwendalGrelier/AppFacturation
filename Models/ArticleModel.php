@@ -13,8 +13,18 @@
             var_dump($result);
         }
 
-        public function addArticle() {
-            
+        public function addBDD() {
+
+            $name = $_POST['name'];
+            $qty = $_POST['qty'];
+            $prix_u = $_POST['prix_u'];
+
+            $requete = $this->connexion->prepare("INSERT INTO article VALUES (NULL, :name, :qty, :prix_u )");
+            $requete->bindParam(':name',$name);
+            $requete->bindParam(':qty',$qty);
+            $requete->bindParam(':prix_u',$prix_u);
+            $result = $requete->execute();
+            var_dump($result);
         }
         
     }

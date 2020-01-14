@@ -49,7 +49,13 @@
         }
 
         public function addArticle() {
-            
+            $this->page .= "<h1>J'ajoute un Article dans le stock via le formulaire</h1>";
+            $this->page .= file_get_contents('pages/forms/formAddArticle.html');
+            $this->page = str_replace('{action}','addBDD',$this->page);
+            $this->page = str_replace('{name}','',$this->page);
+            $this->page = str_replace('{qty}','',$this->page);
+            $this->page = str_replace('{prix_u}','',$this->page);
+            $this->displayPage();
         }
     }
     
