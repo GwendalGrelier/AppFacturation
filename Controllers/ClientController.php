@@ -69,4 +69,14 @@ class ClientController extends Controller
         $this->model->updateClientToDB();
         header('location: index.php?controller=client');
     }
+
+    /**
+         * Affichage du détail du client sélectionné
+         *
+         * @return void
+         */
+        public function detailClient() {
+            $client = $this->model->getClient();
+            $this->view->displayDetailClient($client);
+        }
 }
