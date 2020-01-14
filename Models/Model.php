@@ -94,12 +94,6 @@ abstract class Model
            return $articlelist;
        }
 
-<<<<<<< HEAD
-=======
-       
-        //    var_dump($articlelist);
-      
->>>>>>> 0005f65e7f114b9a2204ea16098d96a5d7347b9d
        /**
         * Récupération de la liste des clients à partir de la base de données
         *
