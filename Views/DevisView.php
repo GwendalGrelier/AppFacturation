@@ -23,6 +23,7 @@
             
             foreach ($devisList as $devis) {
                 $this->page .= '<tr>';
+                $this->page .= '<a href="index.php?controller=devis&action=getDevis&id=1">lien</a>';
                 
                 // Id
                 $this->page .= '<th>';
@@ -101,6 +102,7 @@
 
             $this->page = str_replace('{action}' ,'addToDB' ,$this->page);
             $this->page = str_replace('{display_ID}' ,'hidden' ,$this->page);
+            $this->page = str_replace('{date_du_jour}' ,date('Y-m-d') ,$this->page);
             
             // Ajout de la liste des clients
             $text = "";
@@ -110,6 +112,13 @@
                 $text .= "</option>";
             }
             $this->page = str_replace('{client_list}' ,$text ,$this->page);
+            
+            // Ajout de la liste d'articles'
+            $text = "";
+            foreach ($articleList as $article) {
+                $text .= "<p class='my-0'><input type='checkbox' id='article_".$article['id']."' name='articles[]' value='". $article['id'] ."'> <label for='article_".$article['id']."'>".$article['nom']." (Qté =". $article['qty'] .")"."</label></p>";
+            }
+            $this->page = str_replace('{article_list}' ,$text ,$this->page);
 
             $this->displayPage();
         }
