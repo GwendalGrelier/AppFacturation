@@ -180,6 +180,7 @@
             $this->page = str_replace('{action}' ,'valid' ,$this->page);
             $this->page = str_replace('{societe}' ,$devis['client']['nom_client'] ,$this->page);
             $this->page = str_replace('{numero}' ,$devis['devis']['id'] ,$this->page);
+            $this->page = str_replace('{id}' ,$devis['devis']['id'] ,$this->page);
 
             $this->displayPage();
         }

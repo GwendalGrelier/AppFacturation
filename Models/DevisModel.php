@@ -145,52 +145,13 @@ class DevisModel extends Model
         }
     }
 
-       
-
-     
-        /**
-        * Deletes devis form the database
-        *
-        * @param int $devisID
-        * @return void
-        */
-        public function deleteDevis($devisID)
-       {
-           $request = $this->connexion->prepare("DELETE FROM devis WHERE id=:id");
-           $request->bindParam(':id', $devisID);
-           
-           $result = $request->execute();
-       }
-
-       /**
-        * Adds a the list of articles to each devis
-        *
-        * @param array $devisList
-        * @param array $articleList
-        * @param array $associationTable
-        * @return void
-        */
-       public function parseArticleListToDevis($devisList, $articleList, $associationTable)
-       {
-           foreach ($devisList as $devis) {
-               $devis['articleList'] = array();
-               
-               foreach ($associationTable as $key => $link) {
-                   foreach ($articleList as $article) {
-                       if ($article["id"] == $link['id_article']) {
-                           var_dump($article["nom"]);
-                           $devis['articleList'] = $article; 
-                       }
-                   }
-               }
-           }
-       }
-       
+    
         public function updateStatus(){
+            $id = $_POST['id'];
             $request = $this->connexion->prepare("UPDATE devis SET statut_valider=1 WHERE id=:id");
-            $request->bindParam(':id', $devisID);
+            $request->bindParam(':id', $id);
             $request->execute();
-            var_dump($request->errorinfo());
+
             
         }
     }
