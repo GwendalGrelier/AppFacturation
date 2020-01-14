@@ -55,5 +55,18 @@ abstract class Model
            return $articlelist;
        }
 
+       /**
+        * Récupération de la liste des clients à partir de la base de données
+        *
+        * @return void
+        */
+       public function getClientsList() {
+        $request = "SELECT * FROM client";
+        $request = $this->connexion->query($request);
+        $clientsList = $request->fetchAll(PDO::FETCH_ASSOC);
+        var_dump($clientsList);
+        return $clientsList;
+
+    }
    
 }

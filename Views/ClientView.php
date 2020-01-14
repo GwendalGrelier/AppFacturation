@@ -6,9 +6,14 @@
      */
     class ClientView extends View {
 
-        public function displayHome() {
-            $this->page .= "<h1>Welcome Here</h1>";
-            
+
+        public function displayMainPage() {
+            $this->page .= "<h1>Liste des clients</h1>";
+
+            foreach ($clientList as $client) {
+
+            }
+
             $this->displayPage();
         }
     }
