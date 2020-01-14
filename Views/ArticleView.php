@@ -37,7 +37,7 @@
                     . "<td><strong>" . $list['nom'] . "</strong>"
                     . "<br>" . $list['id'] . "</td>"
                     . "<td>" . $list['qty'] . "</td>"
-                    . "<td>" . $list['prix_u'] . "$</td>"
+                    . "<td>" . $list['prix_u'] . "€</td>"
                     . "<td>" . $lienUpdate
                     . "</td>"
                     . "<td>" . $lienDelete

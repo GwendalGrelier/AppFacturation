@@ -122,7 +122,15 @@
             $this->displayPage();
         }
 
-       
+        public function validationDevis($devis) {
+            $this->page .="<h1>Validation de votre devis</h1>";
+            $this->page .= file_get_contents("pages/forms/validationdevis.html");
+            $this->page = str_replace('{action}' ,'valid' ,$this->page);
+            $this->page = str_replace('{societe}' ,$devis['client']['nom_client'] ,$this->page);
+            $this->page = str_replace('{numero}' ,$devis['devis']['id'] ,$this->page);
+
+            $this->displayPage();
+        }
     }
     
 
