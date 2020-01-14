@@ -13,11 +13,20 @@ class ArticleController extends Controller
 
 
     public function displayMainPage(){
-        $this->view->displayHome();
+        $articlelist = $this->model->getArticleList();
+        $this->view->displayHome($articlelist);
     }
     
-    public function displayListarticle(){
-        $this->model->getArticleList();
-        $this->view->displayHome();
+   
+    public function deleteArticle(){
+
+        $this->model->deleteArticle();
+        header('location:index.php?controller=article');
+    }
+
+    public function addArticle(){
+
+        $this->model->addArticle();
+        $this->view->addArticle();
     }
 }

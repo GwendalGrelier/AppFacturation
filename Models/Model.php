@@ -76,6 +76,7 @@ abstract class Model
            $request = "SELECT * FROM article";
            $request = $this->connexion->query($request);
            $articlelist = $request->fetchAll(PDO::FETCH_ASSOC);
+
            return $articlelist;
        }
 
@@ -87,5 +88,21 @@ abstract class Model
 
            return $assoc_table;
        }
+        //    var_dump($articlelist);
+      
+       /**
+        * Récupération de la liste des clients à partir de la base de données
+        *
+        * @return void
+        */
+       public function getClientsList() {
+        $request = "SELECT * FROM client";
+        $request = $this->connexion->query($request);
+        $clientsList = $request->fetchAll(PDO::FETCH_ASSOC);
+        var_dump($clientsList);
+        return $clientsList;
+
+    }
+    
    
 }
