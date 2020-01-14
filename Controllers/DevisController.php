@@ -24,7 +24,7 @@ class DevisController extends Controller
     public function displayMainPage()
     {
         $articleList = $this->model->getArticleList();
-        $associationTable = $this->model->getAssociationTable(); 
+        // $associationTable = $this->model->getAssociationTable(); 
         $devisList = $this->model->getDevisList();
 
         // $this->model->parseArticleListToDevis($devisList, $articleList, $associationTable);

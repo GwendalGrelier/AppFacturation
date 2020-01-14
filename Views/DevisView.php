@@ -6,6 +6,12 @@
      */
     class DevisView extends View {
 
+        /**
+         * Displays the main page list
+         *
+         * @param array $devisList
+         * @return void
+         */
         public function displayMainPage($devisList) {
             $this->page .= "<h1>Welcome Here</h1>";
            
@@ -18,37 +24,42 @@
                 
                 // Id
                 $this->page .= '<th>';
-                $this->page .= $devis['id'];
+                $this->page .= $devis['devis']['id'];
                 $this->page .= '</th>';
                 
                 // Nom Client
-                $this->page .= '<td>';
-                $this->page .= $devis['id_client'];
-                $this->page .= '</td>';
+                $this->page .= '<td><a href=index.php?controller=client&action=displayClient&client='.$devis['client']['id_client'].'>';
+                $this->page .= $devis['client']['nom_client'];
+                $this->page .= '</a></td>';
 
                 // Nbr items
+                $nbr_articles = count($devis['liste_articles']);
                 $this->page .= '<td>';
-                $this->page .= "3 (a changer)";
+                $this->page .= $nbr_articles;
                 $this->page .= '</td>';
                 
                 // Prix Total
+                $prix_total = 0;
+                foreach ($devis['liste_articles'] as $article) {
+                    $prix_total += $article['qty'] * $article['prix_u'];
+                }
                 $this->page .= '<td>';
-                $this->page .= "15€ (a changer)";
+                $this->page .= $prix_total . "€";
                 $this->page .= '</td>';
                 
                 // Dates
                 $this->page .= '<td>';
                 $this->page .= "<table><tr>";
-                $this->page .= "<td>Creation:\n". $devis['date_creation'] ."</td>";
+                $this->page .= "<td>Creation:\n". $devis['devis']['date_creation'] ."</td>";
                 $this->page .= "</tr>";
                 $this->page .= "<tr>";
-                $this->page .= "<td>Validation: \n". $devis['date_validation'] ."</td>";
+                $this->page .= "<td>Validation: \n". $devis['devis']['date_validation'] ."</td>";
                 $this->page .= "</tr></table> ";
                 $this->page .= '</td>';
                 
                 // Status Devis
                 $this->page .= '<td>';
-                if ($devis['statut_valider']) {
+                if ($devis['devis']['statut_valider']) {
                     $this->page .= "<i class='fas fa-check'></i>";
                 } else {
                     $this->page .= "<i class='far fa-clock'></i>";
@@ -56,7 +67,7 @@
 
                 // Btn creation facture
                 $this->page .= '<td>';
-                if ($devis['statut_valider']) {
+                if ($devis['devis']['statut_valider']) {
                     $this->page .= "<a class='btn btn-primary text-light'>Créer facture</a>";
                 } else {
                     $this->page .= "<p class='btn btn-secondary bg-secondary btn-wait-custom'>En attente de validation</p>";
@@ -67,11 +78,15 @@
 
                 $this->page .= '</tr>';
             }
-
             $this->page .= "</tbody>";
-            
 
             $this->displayPage();
+        }
+
+        public function displayAddForm()
+        {
+            $this->page .= "<h1>Welcome Here</h1>";
+            
         }
     }
     

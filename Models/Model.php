@@ -72,9 +72,7 @@ abstract class Model
                         $devisList[$id]['liste_articles'][$line['nom_article']] = [ "qty" => $line['qty'],
                                                                             "prix_u" => $line['prix_u']];
                     }                    
-                     
                 }
-                
             }
             return $devisList;
        }
@@ -94,8 +92,7 @@ abstract class Model
            return $articlelist;
        }
 
-       
-        //    var_dump($articlelist);
+    
       
        /**
         * Récupération de la liste des clients à partir de la base de données
