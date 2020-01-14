@@ -15,7 +15,7 @@
             $this->page .= "<tr>";
             $this->page .= "<th>Nom de l'article</td>";
             $this->page .= "<th>Quantité </td>";
-            $this->page .= "<th>prix unité</td>";
+            $this->page .= "<th>prix unité du lot</td>";
             $this->page .= "<th>Action </td>";
             $this->page .= "<th></td>";
             $this->page .= "<th></td>";
