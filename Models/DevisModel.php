@@ -145,12 +145,13 @@ class DevisModel extends Model
         }
     }
 
+    
+        public function updateStatus(){
+            $id = $_POST['id'];
+            $request = $this->connexion->prepare("UPDATE devis SET statut_valider=1 WHERE id=:id");
+            $request->bindParam(':id', $id);
+            $request->execute();
 
-    public function updateStatus()
-    {
-        $request = $this->connexion->prepare("UPDATE devis SET statut_valider=1 WHERE id=:id");
-        $request->bindParam(':id', $devisID);
-        $request->execute();
-        var_dump($request->errorinfo());
+            
+        }
     }
-}
