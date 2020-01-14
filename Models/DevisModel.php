@@ -1,16 +1,17 @@
 <?php
-    
-    class DevisModel extends Model {
 
-        /**
-         * Get one Devis from the DB
-         * 
-         * @param int $devisID
-         * @return array $devis
-         */
-       public function getDevis($devisID)
-       {
-            $request = $this->connexion->prepare("SELECT d.*, l.id_article, 
+class DevisModel extends Model
+{
+
+    /**
+     * Get one Devis from the DB
+     * 
+     * @param int $devisID
+     * @return array $devis
+     */
+    public function getDevis($devisID)
+    {
+        $request = $this->connexion->prepare("SELECT d.*, l.id_article, 
             a.nom as nom_article, a.qty, a.prix_u, 
             c.nom_societe as nom_client, c.id as id_client, c.adresse_postale, c.adresse_electronique, 
             c.n_tva, c.siret, c.notes 
@@ -20,82 +21,83 @@
             JOIN article as a ON a.id = l.id_article 
             WHERE d.id = :id");
 
-            $request->bindParam(':id', $devisID);
-            
-            $result = $request->execute();
-            $result = $request->fetchAll(PDO::FETCH_ASSOC);
-            $devisList = [];
+        $request->bindParam(':id', $devisID);
 
-            foreach ($result as $line) {
-                    $devisList['devis']['id'] = $line['id']; 
-                    $devisList['devis']['remise_com'] = $line['remise_com']; 
-                    $devisList['devis']['taux_retard'] = $line['taux_retard']; 
-                    $devisList['devis']['num_facture'] = $line['num_facture']; 
-                    $devisList['devis']['date_echeance'] = $line['date_echeance']; 
-                    $devisList['devis']['date_creation'] = $line['date_creation']; 
-                    $devisList['devis']['date_validation'] = $line['date_validation']; 
-                    $devisList['devis']['statut_valider'] = $line['statut_valider']; 
+        $result = $request->execute();
+        $result = $request->fetchAll(PDO::FETCH_ASSOC);
+        $devisList = [];
 
-                    $devisList['client']['id_client'] = $line['id_client'];
-                    $devisList['client']['nom_client'] = $line['nom_client'];
-                    $devisList['client']['adresse_postale'] = $line['adresse_postale'];
-                    $devisList['client']['adresse_electronique'] = $line['adresse_electronique'];
-                    $devisList['client']['n_tva'] = $line['n_tva'];
-                    $devisList['client']['siret'] = $line['siret'];
-                    $devisList['client']['notes'] = $line['notes'];
+        foreach ($result as $line) {
+            $devisList['devis']['id'] = $line['id'];
+            $devisList['devis']['remise_com'] = $line['remise_com'];
+            $devisList['devis']['taux_retard'] = $line['taux_retard'];
+            $devisList['devis']['num_facture'] = $line['num_facture'];
+            $devisList['devis']['date_echeance'] = $line['date_echeance'];
+            $devisList['devis']['date_creation'] = $line['date_creation'];
+            $devisList['devis']['date_validation'] = $line['date_validation'];
+            $devisList['devis']['statut_valider'] = $line['statut_valider'];
 
-                    $devisList['liste_articles'][$line['nom_article']] = [ "qty" => $line['qty'],
-                                                                        "prix_u" => $line['prix_u']];
-                                    
-            }
-           
-            return $devisList;
+            $devisList['client']['id_client'] = $line['id_client'];
+            $devisList['client']['nom_client'] = $line['nom_client'];
+            $devisList['client']['adresse_postale'] = $line['adresse_postale'];
+            $devisList['client']['adresse_electronique'] = $line['adresse_electronique'];
+            $devisList['client']['n_tva'] = $line['n_tva'];
+            $devisList['client']['siret'] = $line['siret'];
+            $devisList['client']['notes'] = $line['notes'];
+
+            $devisList['liste_articles'][$line['nom_article']] = [
+                "qty" => $line['qty'],
+                "prix_u" => $line['prix_u']
+            ];
         }
 
+        return $devisList;
+    }
 
 
 
-       
 
-     
-        /**
-        * Deletes devis form the database
-        *
-        * @param int $devisID
-        * @return void
-        */
-        public function deleteDevis($devisID)
-       {
-           $request = $this->connexion->prepare("DELETE FROM devis WHERE id=:id");
-           $request->bindParam(':id', $devisID);
-           
-           $result = $request->execute();
-       }
 
-       /**
-        * Adds a the list of articles to each devis
-        *
-        * @param array $devisList
-        * @param array $articleList
-        * @param array $associationTable
-        * @return void
-        */
-       public function parseArticleListToDevis($devisList, $articleList, $associationTable)
-       {
-           foreach ($devisList as $devis) {
-               $devis['articleList'] = array();
-               
-               foreach ($associationTable as $key => $link) {
-                   foreach ($articleList as $article) {
-                       if ($article["id"] == $link['id_article']) {
-                           var_dump($article["nom"]);
-                           $devis['articleList'] = $article; 
-                       }
-                   }
-               }
-           }
-       }
-       
+
+
+    /**
+     * Deletes devis form the database
+     *
+     * @param int $devisID
+     * @return void
+     */
+    public function deleteDevis($devisID)
+    {
+        $request = $this->connexion->prepare("DELETE FROM devis WHERE id=:id");
+        $request->bindParam(':id', $devisID);
+
+        $result = $request->execute();
+    }
+
+    /**
+     * Adds a the list of articles to each devis
+     *
+     * @param array $devisList
+     * @param array $articleList
+     * @param array $associationTable
+     * @return void
+     */
+    public function parseArticleListToDevis($devisList, $articleList, $associationTable)
+    {
+        foreach ($devisList as $devis) {
+            $devis['articleList'] = array();
+
+            foreach ($associationTable as $key => $link) {
+                foreach ($articleList as $article) {
+                    if ($article["id"] == $link['id_article']) {
+                        var_dump($article["nom"]);
+                        $devis['articleList'] = $article;
+                    }
+                }
+            }
+        }
+    }
+
     public function addToDB()
     {
         if (isset($_POST)) {
@@ -113,33 +115,12 @@
             }
 
             $date_echeance = $_POST["date_echeance"];
-            $date_creation = date('Y-m-d');
+            $date_creation = date("Y-m-d");
+            $date_validation = "0000-00-00";
             $statut_valider = 0;
             $num_facture = 0;
-            
 
-            // Create Article correspondance
-            $request_max_id = $this->connexion->prepare("SELECT max(id) FROM liste_article");
-            $result = $request_max_id->execute();
-            $max_id = $request_max_id->fetch(PDO::FETCH_ASSOC);
-            
-            $id = $max_id['max(id)'] + 1;
 
-            $articles = $_POST["articles"];
-            $request = $this->connexion->prepare("INSERT INTO `liste_article` (`id`, `id_article`) VALUES (:id, :id_article)");
-            $request->bindParam(':id', $id);
-            $request->bindParam(':id_article', $id_article);
-
-            foreach ($articles as $article) {
-                $id_article = $article;
-                $result = $request_max_id->execute();
-                var_dump($result);
-
-            }
-            
-            
-            
-            
             $request = $this->connexion->prepare("INSERT INTO `devis` 
             (`id`, `remise_com`, `taux_retard`, `date_echeance`, `num_facture`, `date_creation`, `statut_valider`, `date_validation`, `id_client` ) 
             VALUES 
@@ -152,10 +133,21 @@
             $request->bindParam(':statut_valider', $statut_valider);
             $request->bindParam(':date_validation', $date_validation);
             $request->bindParam(':id_client', $id_client);
-            
-            // $result = $request->execute();
-            // var_dump($result);
+
+            $result = $request->execute();
+
+            $new_devis_id = $this->connexion->lastInsertId();
+
+            $articles = $_POST["articles"];
+            $request = $this->connexion->prepare("INSERT INTO `liste_article` (`id`, `id_article`) VALUES (:id, :id_article)");
+            $request->bindParam(':id', $new_devis_id);
+            $request->bindParam(':id_article', $id_article);
+
+            foreach ($articles as $article) {
+                $id_article = $article;
+                $result = $request->execute();
+            }
         }
     }
+}
 
-    }
