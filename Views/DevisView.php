@@ -114,7 +114,9 @@
             $this->displayPage();
         }
 
-       
+        public function validationDevis() {
+            $this->page .="<h1>Validation de votre devis</h1>";
+        }
     }
     
 
