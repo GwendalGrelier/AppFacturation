@@ -27,54 +27,26 @@
 			<input id="remise_comm" name="remise_comm" class="col-md-9 form-control" type="text" placeholder="Ex: 10">
 		</div>
 	
-		<!-- Input Remise Commercial -->
+		<!-- Input Taux Retard -->
 		<div class="form-group row">
-			<label class="col-md-3 col-form-label" for="remise_comm">Remise Commercial (%) :</label>
-			<input id="remise_comm" name="remise_comm" class="col-md-9 form-control" type="text" placeholder="Ex: 10">
-		</div>
-
-
-		<!-- Input Tel -->
-		<div class="form-group row">
-			<label class="col-md-3 col-form-label" for="tel">Votre téléphone :</label>
-			<input id="tel" name="tel" class="col-md-9 form-control" type="tel" placeholder="0123456789">
-		</div>
-
-		<!-- Input File -->
-		<div class="form-group row">
-			<label class="col-md-3 col-form-label" for="file">Joindre un fichier :</label>
-			<input id="file" name="file" class="col-md-9 form-control" type="file">
+			<label class="col-md-3 col-form-label" for="taux_retard">Taux Retard (%) :</label>
+			<input id="taux_retard" name="taux_retard" class="col-md-9 form-control" type="text" placeholder="Ex: 5">
 		</div>
 		
-		<!-- Input File2 -->
+		
+		<!-- Input Date Echeance -->
 		<div class="form-group row">
-			<div class="custom-file">
-				<input type="file" class="custom-file-input" id="validatedCustomFile" required>
-				<label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
-			</div>
+			<label class="col-md-3 col-form-label" for="date_echeance">Date d'echéance prévisionnelle :</label>
+			<input id="date_echeance" name="date_echeance" class="col-md-9 form-control" type="date" min="{date_du_jour}" required>
 		</div>
-
-		<!-- Input Sexe -->
-		<div class="form-group row">
-			<label class="col-md-3 col-form-label">Votre sexe :</label>
-			<div class="form-check form-check-inline">
-				<input class="form-check-input" type="radio" name="radioSexe" id="inlineRadio1" value="homme">
-				<label class="form-check-label" for="inlineRadio1">Homme</label>
-			</div>
-			<div class="form-check form-check-inline">
-				<input class="form-check-input" type="radio" name="radioSexe" id="inlineRadio2" value="femme">
-				<label class="form-check-label" for="inlineRadio2">Femme</label>
-			</div>
+		
+		<h3>Liste d'articles</h3>
+		<div class="btn-group-toggle">
+			{article_list}
+			<!-- <input type="checkbox" name="check_list[]" value="PHP"><label>PHP</label><br/> -->
 		</div>
 
 		
-
-		<!-- Input Message -->
-		<div class="form-group row">
-			<label class="col-md-3 col-form-label">Votre message :</label>
-			<textarea class="col-md-9 form-control" name="message" rows="10">
-						</textarea>
-		</div>
 
 		<!-- Submit Button -->
 		<div class="form-group row">

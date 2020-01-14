@@ -40,5 +40,23 @@ class DevisController extends Controller
         $this->view->displayAddForm($clientList, $articleList);
     }
 
+    public function addToDB()
+    {
+        $this->model->addToDB();
+        // header('location:index.php?controller=devis');
+    }
     
+    public function validationDevis(){
+            $id = $_GET['id'];
+            $devis = $this->model->getDevis($id);
+            var_dump($devis);
+            $this->view->validationDevis($devis);
+
+    }
+
+    public function valid(){
+
+        $this->model->updateStatus();
+        
+    }
 }
