@@ -40,5 +40,10 @@ class DevisController extends Controller
         $this->view->displayAddForm($clientList, $articleList);
     }
 
-    
+    public function validationDevis(){
+            $id = $_GET['id'];
+            $devisID = $this->model->getDevis($id);
+            $this->view->validationDevis($devisID);
+
+    }
 }
