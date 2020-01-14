@@ -40,10 +40,19 @@ class DevisController extends Controller
         $this->view->displayAddForm($clientList, $articleList);
     }
 
+    public function addToDB()
+    {
+        if (isset($_POST)) {
+            $client = $_POST["client"];
+            $remise_comm = $_POST["remise_comm"];
+            $taux_retard = $_POST["taux_retard"];
+        }
+    }
+    
     public function validationDevis(){
             $id = $_GET['id'];
             $devisID = $this->model->getDevis($id);
-            $this->view->validationDevis($devisID);
+            // $this->view->validationDevis($devisID);
 
     }
 }
