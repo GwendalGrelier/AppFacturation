@@ -41,6 +41,8 @@ abstract class Model
            
            return $devisList;
        }
+
+       
     /**
      * Gets the list of every Quote
      *
@@ -56,5 +58,22 @@ abstract class Model
            return $articlelist;
        }
 
+<<<<<<< HEAD
+       /**
+        * Récupération de la liste des clients à partir de la base de données
+        *
+        * @return void
+        */
+       public function getClientsList() {
+        $request = "SELECT * FROM client";
+        $request = $this->connexion->query($request);
+        $clientsList = $request->fetchAll(PDO::FETCH_ASSOC);
+        var_dump($clientsList);
+        return $clientsList;
+
+    }
+=======
+    
+>>>>>>> cd3b66fdc3a79fdbb5de39f20bfc64e16b716f90
    
 }

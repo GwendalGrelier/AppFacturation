@@ -11,27 +11,61 @@ class ClientController extends Controller
         $this->view = new ClientView();
     }
 
+    /**
+     * Affiche la page d'accueil avec la liste des clients
+     *
+     * @return void
+     */
     public function displayMainPage() {
-        $this->model->displayMainPage();
+        $clientsList = $this->model->getClients();
+        $this->view->displayMainPage($clientsList);
     }
 
+    /**
+     * Affichage du formulaire pour l'ajout d'un client
+     *
+     * @return void
+     */
     public function addFormClient() {
-        $this->model->addFormClient();
+        $devisList = $this->model->getDevisList();
+        $this->model->addFormClient($devisList);
     }
 
+    /**
+     * Ajout d'un nouveau client à la BDD
+     *
+     * @return void
+     */
     public function addClientToDB() {
-        $client = $this->model->addClientToDB();
+        $this->model->addClientToDB();
     }
 
+    /**
+     * Affichage du formulaire pour la suppression d'un client
+     *
+     * @return void
+     */
     public function deleteClientFromDB() {
         $this->model->deleteClientFromDB();
     }
 
+    /**
+     * Affichage du formulaire pour la mise à jour d'un client
+     *
+     * @return void
+     */
     public function updateFormClient() {
-
+        $devisList = $this->model->getDevisList();
+        $client = $this->model->getClient();
+        $this->model->updateFormClient($client, $devisList);
     }
 
+    /**
+     * Mise à jour d'un client dans la BDD
+     *
+     * @return void
+     */
     public function updateClientToDB() {
-        
+        $this->model->updateClientToDB();
     }
 }
