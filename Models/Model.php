@@ -41,6 +41,8 @@ abstract class Model
            
            return $devisList;
        }
+
+       
     /**
      * Gets the list of every Quote
      *
@@ -55,5 +57,6 @@ abstract class Model
            return $articlelist;
        }
 
+    
    
 }
