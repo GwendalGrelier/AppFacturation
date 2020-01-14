@@ -34,4 +34,15 @@ class ArticleController extends Controller
         $this->model->addBDD();
         header('location:index.php?controller=article');
     }
+
+    public function displayUpdateArticle(){
+
+        $article = $this->model->getArticle();
+        $this->view->displayUpdateArticle($article);
+    }
+
+    public function updateBDD(){
+
+        $this->model->updateBDD();
+    }
 }
