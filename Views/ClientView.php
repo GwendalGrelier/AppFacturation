@@ -57,17 +57,21 @@
                     
                 }
             // } else {
-                // foreach($clientsList as $client) {
-                //     $this->page .= "<tr>" 
-                //     . "<td>" . $client['id'] . "</td>"
-                //     . "<td>" . $client['adresse_postale'] . "</td>"
-                //     . "<td>" . $client['adresse_electronique'] . "</td>"
-                //     . "<td class='text-center'><a href='index.php?controller=client&action=detailClient&id="
-                //     . $client['id']
-                //     . "' class='btn btn-success' title='Lire' ><i class='fas fa-eye'></i></a>"  
-                //     . "</td>"
-                //     . "</tr>";
-                // }
+            //     foreach($clientsList as $client) {
+            //         $this->page .= "<tr>" 
+            //         . "<td>" . $client['id'] . "</td>"
+            //         . "<td>" . $client['nom_societe'] . "</td>"
+            //         . "<td>" . $client['adresse_postale'] . "</td>"
+            //         . "<td>" . $client['adresse_electronique'] . "</td>"
+            //         . "<td>" . $client['n_tva'] . "</td>"
+            //         . "<td>" . $client['siret'] . "</td>"
+            //         . "<td>" . $client['notes'] . "</td>"
+            //         . "<td class='text-center'><a href='index.php?controller=client&action=detailClient&id="
+            //         . $client['id']
+            //         . "' class='btn btn-success' title='Lire' ><i class='fas fa-eye'></i></a>"  
+            //         . "</td>"
+            //         . "</tr>";
+            //     }
             // }
             $this->page .= "</table>";
             $this->displayPage();
@@ -76,14 +80,14 @@
         /**
          * Affichage du formulaire d'ajout de client
          *
-         * @param [type] $listCategories
+         * @param array $devisList
          * @return void
          */
-        public function addFormClient($devisList) {
+        public function displayAddFormClient() {
             $this->page .= "<h1>Ajout d'un client</h1>";
             $this->page .= "<p>J'ajoute un client via un formulaire</p>";
             
-            $this->page .= file_get_contents('pages/forms/formClient.html');
+            $this->page .= file_get_contents('pages/forms/formAddClient.html');
             
             $this->page = str_replace('{action}', 'addClientToDB', $this->page);
             $this->page = str_replace('{id}', '', $this->page);
@@ -93,16 +97,34 @@
             $this->page = str_replace('{n_tva}', '', $this->page);
             $this->page = str_replace('{siret}', '', $this->page);
             $this->page = str_replace('{notes}', '', $this->page);
-            // $devis = "";
-
-            // foreach($devisList as $devis) {
-            //     $devis .= "<option value='" . $devis['id'] . "'>" . $devis['name'] . "</option>";
-            // }
             
-            // $this->page = str_replace('{devis}', $devis, $this->page);
-
             $this->displayPage();
         }
+
+        /**
+         * Affichage du formulaire de mise à jour du client
+         *
+         * @param array $client
+         * @return void
+         */
+        public function displayUpdateFormClient($client) {
+            
+            $this->page .= "<h1>Mis à jour d'un client</h1>";
+            $this->page .= "<p>Je mets à jour un client via un formulaire</p>";
+            
+            $this->page .= file_get_contents('pages/forms/formAddClient.html');
+            
+            $this->page = str_replace('{action}', 'updateClientToDB', $this->page);
+            $this->page = str_replace('{id}', $client['id'], $this->page);
+            $this->page = str_replace('{nom_societe}', $client['nom_societe'], $this->page);
+            $this->page = str_replace('{adresse_postale}', $client['adresse_postale'], $this->page);
+            $this->page = str_replace('{adresse_electronique}', $client['adresse_electronique'], $this->page);
+            $this->page = str_replace('{n_tva}', $client['n_tva'], $this->page);
+            $this->page = str_replace('{siret}', $client['siret'], $this->page);
+            $this->page = str_replace('{notes}', $client['notes'], $this->page);
+
+            $this->displayPage();
+            }
     }
     
 
