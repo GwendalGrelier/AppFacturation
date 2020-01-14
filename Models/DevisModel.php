@@ -55,11 +55,6 @@ class DevisModel extends Model
     }
 
 
-
-
-
-
-
     /**
      * Deletes devis form the database
      *
@@ -149,7 +144,6 @@ class DevisModel extends Model
             }
         }
     }
-}
 
        
 
