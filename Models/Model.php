@@ -35,14 +35,37 @@ abstract class Model
      */
     public function getDevisList()
        {
-           $request = "SELECT * FROM devis";
+           $request = "SELECT d.*, l.id_article FROM `devis` as d JOIN liste_article as l ON d.id = l.id ";
            $request = $this->connexion->query($request);
-           $devisList = $request->fetchAll(PDO::FETCH_ASSOC);
+           $result = $request->fetchAll(PDO::FETCH_ASSOC);
            
+           $devisList = [];
+           $devisIdList = array_unique(array_column($result, "id"));
+
+           foreach ($devisIdList as $id) {
+               foreach ($result as $line) {
+                   if ($line["id"] == $id) {
+                        $devisList[$id]['remise_com'] = $line['remise_com']; 
+                        $devisList[$id]['taux_retard'] = $line['taux_retard']; 
+                        $devisList[$id]['num_facture'] = $line['num_facture']; 
+                        $devisList[$id]['date_echeance'] = $line['date_echeance']; 
+                        $devisList[$id]['date_creation'] = $line['date_creation']; 
+                        $devisList[$id]['date_validation'] = $line['date_validation']; 
+                        $devisList[$id]['statut_valider'] = $line['statut_valider']; 
+                        $devisList[$id]['id_client'] = $line['id_client'];
+
+                        $devisList[$id]['liste_articles'][] = $line['id_article'];
+                        
+                    }                    
+                     
+               }
+               
+           }
+        //    var_dump($devisList);
            return $devisList;
        }
 
-       
+
     /**
      * Gets the list of every Quote
      *
@@ -53,10 +76,16 @@ abstract class Model
            $request = "SELECT * FROM article";
            $request = $this->connexion->query($request);
            $articlelist = $request->fetchAll(PDO::FETCH_ASSOC);
-           var_dump($articlelist);
            return $articlelist;
        }
 
-    
+       public function getAssociationTable()
+       {
+           $request = "SELECT * FROM liste_article";
+           $request = $this->connexion->query($request);
+           $assoc_table = $request->fetchAll(PDO::FETCH_ASSOC);
+
+           return $assoc_table;
+       }
    
 }
