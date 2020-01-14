@@ -28,7 +28,7 @@ class ClientController extends Controller
      */
     public function addFormClient() {
         $devisList = $this->model->getDevisList();
-        $this->model->addFormClient($devisList);
+        $this->view->addFormClient($devisList);
     }
 
     /**
