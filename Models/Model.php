@@ -57,7 +57,6 @@ abstract class Model
            return $articlelist;
        }
 
-<<<<<<< HEAD
        /**
         * Récupération de la liste des clients à partir de la base de données
         *
@@ -71,8 +70,5 @@ abstract class Model
         return $clientsList;
 
     }
-=======
-    
->>>>>>> cd3b66fdc3a79fdbb5de39f20bfc64e16b716f90
    
 }
