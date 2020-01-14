@@ -23,7 +23,6 @@
             
             foreach ($devisList as $devis) {
                 $this->page .= '<tr>';
-                $this->page .= '<a href="index.php?controller=devis&action=getDevis&id=1">lien</a>';
                 
                 // Id
                 $this->page .= '<th>';

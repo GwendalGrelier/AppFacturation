@@ -18,55 +18,52 @@
             JOIN liste_article as l ON d.id = l.id 
             JOIN client as c ON d.`id_client` = c.id 
             JOIN article as a ON a.id = l.id_article 
-            WHERE id = :id");
+            WHERE d.id = :id");
 
-            $request->bindParam(':id', $id);
+            $request->bindParam(':id', $devisID);
             
             $result = $request->execute();
-            $devisList = $request->fetchAll(PDO::FETCH_ASSOC);
+            $result = $request->fetchAll(PDO::FETCH_ASSOC);
+            $devisList = [];
 
-           $devisList = [];
-           $devisIdList = array_unique(array_column($devisList, "id"));
-           foreach ($devisIdList as $id) {
-               foreach ($result as $line) {
-                   if ($line["id"] == $id) {
-                        $devisList[$id]['devis']['id'] = $id; 
-                        $devisList[$id]['devis']['remise_com'] = $line['remise_com']; 
-                        $devisList[$id]['devis']['taux_retard'] = $line['taux_retard']; 
-                        $devisList[$id]['devis']['num_facture'] = $line['num_facture']; 
-                        $devisList[$id]['devis']['date_echeance'] = $line['date_echeance']; 
-                        $devisList[$id]['devis']['date_creation'] = $line['date_creation']; 
-                        $devisList[$id]['devis']['date_validation'] = $line['date_validation']; 
-                        $devisList[$id]['devis']['statut_valider'] = $line['statut_valider']; 
+            foreach ($result as $line) {
+                    $devisList['devis']['id'] = $line['id']; 
+                    $devisList['devis']['remise_com'] = $line['remise_com']; 
+                    $devisList['devis']['taux_retard'] = $line['taux_retard']; 
+                    $devisList['devis']['num_facture'] = $line['num_facture']; 
+                    $devisList['devis']['date_echeance'] = $line['date_echeance']; 
+                    $devisList['devis']['date_creation'] = $line['date_creation']; 
+                    $devisList['devis']['date_validation'] = $line['date_validation']; 
+                    $devisList['devis']['statut_valider'] = $line['statut_valider']; 
 
-                        $devisList[$id]['client']['id_client'] = $line['id_client'];
-                        $devisList[$id]['client']['nom_client'] = $line['nom_client'];
-                        $devisList[$id]['client']['adresse_postale'] = $line['adresse_postale'];
-                        $devisList[$id]['client']['adresse_electronique'] = $line['adresse_electronique'];
-                        $devisList[$id]['client']['n_tva'] = $line['n_tva'];
-                        $devisList[$id]['client']['siret'] = $line['siret'];
-                        $devisList[$id]['client']['notes'] = $line['notes'];
+                    $devisList['client']['id_client'] = $line['id_client'];
+                    $devisList['client']['nom_client'] = $line['nom_client'];
+                    $devisList['client']['adresse_postale'] = $line['adresse_postale'];
+                    $devisList['client']['adresse_electronique'] = $line['adresse_electronique'];
+                    $devisList['client']['n_tva'] = $line['n_tva'];
+                    $devisList['client']['siret'] = $line['siret'];
+                    $devisList['client']['notes'] = $line['notes'];
 
-                        $devisList[$id]['liste_articles'][$line['nom_article']] = [ "qty" => $line['qty'],
-                                                                            "prix_u" => $line['prix_u']];
-                    }                    
-                }
+                    $devisList['liste_articles'][$line['nom_article']] = [ "qty" => $line['qty'],
+                                                                        "prix_u" => $line['prix_u']];
+                                    
             }
-            var_dump($devisIdList);
             return $devisList;
+        }
 
 
 
 
-       }
+       
 
-       /**
+     
+        /**
         * Deletes devis form the database
         *
         * @param int $devisID
         * @return void
         */
-       public function deleteDevis($devisID)
+        public function deleteDevis($devisID)
        {
            $request = $this->connexion->prepare("DELETE FROM devis WHERE id=:id");
            $request->bindParam(':id', $devisID);
