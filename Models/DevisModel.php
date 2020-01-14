@@ -153,7 +153,4 @@ class DevisModel extends Model
         $request->execute();
         var_dump($request->errorinfo());
     }
-<<<<<<< HEAD
-=======
 }
->>>>>>> ec696e99366cd93c7454dda767c133a5e5a51efe
