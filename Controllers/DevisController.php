@@ -51,8 +51,8 @@ class DevisController extends Controller
     
     public function validationDevis(){
             $id = $_GET['id'];
-            $devisID = $this->model->getDevis($id);
-            // $this->view->validationDevis($devisID);
+            $devis = $this->model->getDevis($id);
+            $this->view->validationDevis($devis);
 
     }
 }

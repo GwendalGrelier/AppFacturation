@@ -48,6 +48,7 @@
                                                                         "prix_u" => $line['prix_u']];
                                     
             }
+           
             return $devisList;
         }
 
