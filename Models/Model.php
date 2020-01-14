@@ -42,7 +42,7 @@ abstract class Model
                         FROM `devis` as d 
                         JOIN liste_article as l ON d.id = l.id 
                         JOIN client as c ON d.`id_client` = c.id 
-                        JOIN article as a ON a.id = l.id_article ";
+                        JOIN article as a ON a.id = l.id_article order by d.id";
 
            $request = $this->connexion->query($request);
            $result = $request->fetchAll(PDO::FETCH_ASSOC);

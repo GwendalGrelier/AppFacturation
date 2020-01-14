@@ -42,11 +42,8 @@ class DevisController extends Controller
 
     public function addToDB()
     {
-        if (isset($_POST)) {
-            $client = $_POST["client"];
-            $remise_comm = $_POST["remise_comm"];
-            $taux_retard = $_POST["taux_retard"];
-        }
+        $this->model->addToDB();
+        // header('location:index.php?controller=devis');
     }
     
     public function validationDevis(){
