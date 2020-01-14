@@ -95,4 +95,66 @@
            }
        }
        
+    public function addToDB()
+    {
+        if (isset($_POST)) {
+            $id_client = $_POST["client"];
+            if (!empty($_POST["remise_comm"])) {
+                $remise_com = $_POST["remise_comm"];
+            } else {
+                $remise_com = 0;
+            }
+
+            if (!empty($_POST["remise_comm"])) {
+                $taux_retard = $_POST["taux_retard"];
+            } else {
+                $taux_retard = 0;
+            }
+
+            $date_echeance = $_POST["date_echeance"];
+            $date_creation = date('Y-m-d');
+            $statut_valider = 0;
+            $num_facture = 0;
+            
+
+            // Create Article correspondance
+            $request_max_id = $this->connexion->prepare("SELECT max(id) FROM liste_article");
+            $result = $request_max_id->execute();
+            $max_id = $request_max_id->fetch(PDO::FETCH_ASSOC);
+            
+            $id = $max_id['max(id)'] + 1;
+
+            $articles = $_POST["articles"];
+            $request = $this->connexion->prepare("INSERT INTO `liste_article` (`id`, `id_article`) VALUES (:id, :id_article)");
+            $request->bindParam(':id', $id);
+            $request->bindParam(':id_article', $id_article);
+
+            foreach ($articles as $article) {
+                $id_article = $article;
+                $result = $request_max_id->execute();
+                var_dump($result);
+
+            }
+            
+            
+            
+            
+            $request = $this->connexion->prepare("INSERT INTO `devis` 
+            (`id`, `remise_com`, `taux_retard`, `date_echeance`, `num_facture`, `date_creation`, `statut_valider`, `date_validation`, `id_client` ) 
+            VALUES 
+            (NULL, :remise_com, :taux_retard, :date_echeance, :num_facture, :date_creation, :statut_valider, :date_validation, :id_client)");
+            $request->bindParam(':remise_com', $remise_com);
+            $request->bindParam(':taux_retard', $taux_retard);
+            $request->bindParam(':date_echeance', $date_echeance);
+            $request->bindParam(':num_facture', $num_facture);
+            $request->bindParam(':date_creation', $date_creation);
+            $request->bindParam(':statut_valider', $statut_valider);
+            $request->bindParam(':date_validation', $date_validation);
+            $request->bindParam(':id_client', $id_client);
+            
+            // $result = $request->execute();
+            // var_dump($result);
+        }
+    }
+
     }
