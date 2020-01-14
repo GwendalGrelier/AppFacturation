@@ -51,7 +51,8 @@ abstract class Model
            $request = "SELECT * FROM article";
            $request = $this->connexion->query($request);
            $articlelist = $request->fetchAll(PDO::FETCH_ASSOC);
-           var_dump($articlelist);
+        //    var_dump($articlelist);
+           
            return $articlelist;
        }
 
