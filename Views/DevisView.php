@@ -15,6 +15,8 @@
         public function displayMainPage($devisList) {
             $this->page .= "<h1>Welcome Here</h1>";
            
+
+            $this->page .= '<a href="index.php?controller=devis&action=displayAddNewForm" class="btn btn-primary">Créer un nouveau devis</a>'; 
             $this->page .= '<table class="table"><thead><tr>'; 
             $this->page .= '<th scope="col">Ref</th><th scope="col">Client</th><th scope="col">Nb d\'article</th><th scope="col">Prix Tot.</th><th scope="col">Dates</th><th scope="col">Status</th><th scope="col">Créer facture</th></tr></thead>'; 
             $this->page .= "<tbody>";
@@ -83,11 +85,36 @@
             $this->displayPage();
         }
 
-        public function displayAddForm()
+        /**
+         * Displays the form to create a new Quote
+         *
+         * A client needs to be selected as well as a list of articles
+         * 
+         * @param array $clientList
+         * @param array $articleList
+         * @return void
+         */
+        public function displayAddForm($clientList, $articleList)
         {
-            $this->page .= "<h1>Welcome Here</h1>";
+            $this->page .= "<h1>Creation d'un devis</h1>";
+            $this->page .= file_get_contents("pages/forms/formAddDevis.html");
+
+            $this->page = str_replace('{action}' ,'addToDB' ,$this->page);
+            $this->page = str_replace('{display_ID}' ,'hidden' ,$this->page);
             
+            // Ajout de la liste des clients
+            $text = "";
+            foreach ($clientList as $client) {
+                $text .= "<option value='". $client['id'] ."'>";
+                $text .= $client['nom_societe'];
+                $text .= "</option>";
+            }
+            $this->page = str_replace('{client_list}' ,$text ,$this->page);
+
+            $this->displayPage();
         }
+
+       
     }
     
 

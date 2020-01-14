@@ -32,6 +32,13 @@ class DevisController extends Controller
         $this->view->displayMainPage($devisList);
     }
 
+    public function displayAddNewForm()
+    {
+        $clientList = $this->model->getClientsList();
+        $articleList = $this->model->getArticleList();
+
+        $this->view->displayAddForm($clientList, $articleList);
+    }
 
     
 }
