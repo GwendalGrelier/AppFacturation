@@ -155,9 +155,28 @@ class DevisModel extends Model
 
     public function updateStatus()
     {
-        $id = $_POST['id'];
+       
+
+        if (isset($_FILES['devis']) && !empty($_FILES['devis'])) {
+            $emplacement_temporaire = $_FILES['devis']['tmp_name'];
+            $nom_fichier = $_FILES['devis']['name'];
+            // $emplacement_destination = 'C:\wamp64\www\cours\2019_DWWM\appCantine\img\\'. $nom_fichier;
+            $emplacement_destination = 'devis\\'. $nom_fichier;
+            var_dump($emplacement_temporaire);
+            var_dump($emplacement_destination);
+            
+            $result = move_uploaded_file ( $emplacement_temporaire , $emplacement_destination );
+            if ($result) {
+                $photo = 'devis\\'.$nom_fichier;
+            }		
+        }	
+
+
+
         $request = $this->connexion->prepare("UPDATE devis SET statut_valider=1 WHERE id=:id");
         $request->bindParam(':id', $id);
+        var_dump($_POST);
+        var_dump($_FILES);
         $request->execute();
     }
 
