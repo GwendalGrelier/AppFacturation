@@ -92,8 +92,6 @@ abstract class Model
            return $articlelist;
        }
 
-    
-      
        /**
         * Récupération de la liste des clients à partir de la base de données
         *

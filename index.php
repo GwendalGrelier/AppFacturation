@@ -6,7 +6,11 @@
     include "Controllers/ArticleController.php";
     include "Controllers/DevisController.php";
     include "Controllers/ClientController.php";
+<<<<<<< HEAD
+    include "Controllers/EnvoieController.php";
+=======
     include "Controllers/SecurityController.php";
+>>>>>>> 234f4fe8ed9c85ae8fb95190d5035e049c11e2f3
 
     session_start();
 
