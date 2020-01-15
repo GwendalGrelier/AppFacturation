@@ -62,10 +62,20 @@ class DevisController extends Controller
         header("Location: index.php?controller=devis");
     }
 
+    /**
+     * Adds a Quote to the database
+     * 
+     * The Quote is created, added to the database and calls
+     * model->createDevisHTML() which returns the HTML code for the quote
+     * 
+     * This text is then send by email to the client.
+     *
+     * @return void
+     */
     public function addToDB()
     {
         $idDevis = $this->model->addToDB();
-        $this->model->createDevisHTML($idDevis);
+        $textDevis = $this->model->createDevisHTML($idDevis);
         header('location:index.php?controller=devis');
     }
     

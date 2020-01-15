@@ -80,9 +80,10 @@ class ClientController extends Controller
             $this->view->displayClientPage($client);
         }
 
-        public function getClientDevis() {
+        public function displayClientDevis() {
             $client = $this->model->getClient();
-            $clientDevis = $this->model->getDevis($client);
-            $this->view->displayClientPage($client, $clientDevis);
+            $clientDevis = $this->model->getDevisFromClient($client['id']);
+            $this->view->displayClientDevis($clientDevis);
+            // var_dump($clientDevis);
         }
 }
