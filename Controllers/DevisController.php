@@ -78,7 +78,7 @@ class DevisController extends Controller
         $textDevis = $this->model->createDevisHTML($idDevis);
         header('location:index.php?controller=devis');
     }
-    
+
     public function validationDevis(){
             $id = $_GET['id'];
             $devis = $this->model->getDevis($id);
@@ -86,7 +86,7 @@ class DevisController extends Controller
 
     }
 
-    public function valid(){
+        public function valid(){
 
         $this->model->updateStatus();
         $this->model->updateDevis();

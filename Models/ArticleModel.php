@@ -4,12 +4,11 @@
 
         
 
-            /*
-            Delete in table Article
-             
-            @return void
-
-            */
+            /**
+             * delete for BDD
+             *
+             * @return void
+             */
         public function deleteArticle() {
 
             $id = $_GET['id'];
@@ -20,13 +19,11 @@
             var_dump($result);
         }
 
-        /*
-            add in table Article
-             
-            @return void
-
-            */
-
+       /**
+        * ajout
+        *
+        * @return void
+        */
         public function addBDD() {
 
             $name = $_POST['name'];
@@ -40,12 +37,11 @@
             $result = $requete->execute();
             
         }
-        /*
-            extraction de la  table Article
-             
-            @return array $result
-
-            */
+        /**
+         * retour liste article
+         *
+         * @return $result
+         */
         public function getArticle(){
             $id = $_GET['id'];
 
@@ -55,12 +51,11 @@
             $result = $requete->fetch(PDO::FETCH_ASSOC);
             return $result;
         }
-/*
-            update in table article 
-             
-            @return void
-
-            */
+/**
+ * modification bdd
+ *
+ * @return void
+ */
         public function updateBDD(){
             $name = $_POST['name'];
             $id = $_POST['id'];
