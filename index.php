@@ -7,7 +7,6 @@
     include "Controllers/DevisController.php";
     include "Controllers/ClientController.php";
     include "Controllers/SecurityController.php";
-    
 
     session_start();
 
