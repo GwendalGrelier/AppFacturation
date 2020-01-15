@@ -1,0 +1,31 @@
+
+<h1>Devis</h1>
+
+<h2>{nom_societe}</h2>
+<p>{adress_postale}</p>
+
+<p><strong>Devis N° :</strong> {id_devis}</p>
+<p><strong>Date du devis :</strong> {date_creation}</p>
+
+
+<table>
+    <tr>
+        <th>
+            Qté (par lot)       
+        </th>
+        <th>
+            Nom Produit        
+        </th>
+        <th>
+            Prix Unitaire        
+        </th>
+    </tr>
+    
+    {liste_produit}
+    
+    <tr>
+        <td colspan="2">Total HT</td><td>{sub_total_price}</td>
+        <td colspan="2">TVA 20%</td><td>{tva}</td>
+        <td colspan="2"><strong>TOTAL</strong></td><td>{total_price}</td>
+    </tr>
+</table>

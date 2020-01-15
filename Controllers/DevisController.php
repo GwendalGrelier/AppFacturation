@@ -58,7 +58,8 @@ class DevisController extends Controller
     public function addToDB()
     {
         $this->model->addToDB();
-        header('location:index.php?controller=devis');
+        $this->model->createDevisPDF();
+        // header('location:index.php?controller=devis');
     }
     
     public function validationDevis(){
