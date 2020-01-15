@@ -11,27 +11,19 @@ class ArticleController extends Controller
         $this->view = new ArticleView();
     }
 
-    /*
-     Construction de la page d'accueil
-     liste d'information de la BDD
-     
-     @return void
-    
-
-    */
+    /**
+     * liste d'information
+     *
+     * @return void
+     */
     public function displayMainPage(){
         $articlelist = $this->model->getArticleList();
         $this->view->displayHome($articlelist);
     }
-    
-   
+   /**
+    * Delete BDD article
 
-     /*
-     delete in BDD
-     
-     @return void
-    
-
+    @return void
     */
 
 
@@ -40,26 +32,21 @@ class ArticleController extends Controller
         $this->model->deleteArticle();
         header('location:index.php?controller=article');
     }
-     /*
-     Construction de la page d'ajout des article
-     liste d'information de la BDD
-     
-     @return void
-    
-
-    */
+     /**
+      * affichage article
+      *
+      * @return void
+      */
     public function addArticle(){
 
         $this->view->addArticle();
     }
 
-     /*
-     Add in BDD
-     
-     @return void
-    
-
-    */
+    /**
+      * add bdd
+      *
+      * @return void
+      */
 
     public function addBDD(){
 
@@ -67,14 +54,11 @@ class ArticleController extends Controller
         header('location:index.php?controller=article');
     }
 
-     /*
-     Construction de la page de modification
-     liste d'information de la BDD
-     
-     @return void
-    
-
-    */
+     /**
+      * update affichage article
+      *
+      * @return void
+      */
 
     public function displayUpdateArticle(){
 
@@ -82,15 +66,11 @@ class ArticleController extends Controller
         $this->view->displayUpdateArticle($article);
     }
 
-
-     /*
-     modif in BDD
-     
-     
-     @return void
-    
-
-    */
+ /**
+      * update  article
+      *
+      * @return void
+      */
     public function updateBDD(){
 
         $this->model->updateBDD();

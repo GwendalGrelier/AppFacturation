@@ -92,24 +92,32 @@ class DevisController extends Controller
         $textDevis = $this->model->createDevisHTML($idDevis);
         header('location:index.php?controller=devis');
     }
+<<<<<<< HEAD
+
+=======
     
     /**
      * Display the form to validate the user Quote
      *
      * @return void
      */
+>>>>>>> 8ff281195c0ac54dff44b6974e9be93b5055fcb7
     public function validationDevis(){
             $id = $_GET['id'];
             $devis = $this->model->getDevis($id);
             $this->view->validationDevis($devis);
     }
 
+<<<<<<< HEAD
+        public function valid(){
+=======
     /**
      * Validate the quote and sets new statut to the DB
      *
      * @return void
      */
     public function valid(){
+>>>>>>> 8ff281195c0ac54dff44b6974e9be93b5055fcb7
 
         $this->model->updateStatus();
         $this->model->updateDevis();
