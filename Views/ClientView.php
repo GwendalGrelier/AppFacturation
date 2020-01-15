@@ -139,7 +139,7 @@
             $this->page .= "<th class='text-center'>N° TVA</th>";
             $this->page .= "<th class='text-center'>N° SIRET</th>";
             $this->page .= "<th class='text-center'>Notes</th>";
-            // $this->page .= "<th class='text-center'>Liste des devis</th>";
+            $this->page .= "<th class='text-center'>Consulter les devis</th>";
             // $this->page .= "<th class='text-center'>Liste des factures</th>";
             $this->page .= "</tr>";
             $this->page .= "<tr>" 
@@ -149,13 +149,39 @@
                     . "<td>" . $client['n_tva'] . "</td>"
                     . "<td>" . $client['siret'] . "</td>"
                     . "<td>" . $client['notes'] . "</td>"
-                    // . "<td>" . $clientDevis['id'] . "</td>"
+                    . "<td><a href=index.php?controller=client&action=displayClientDevis&id="
+                    . $client['id']
+                    . "'>"
+                    . $client['id'] . "</a></td>"
                     // . "<td>" . $clientFactures['id'] . "</td>"
                     . "</tr>";
             $this->page .= "</table>";
             $this->page .= "<p><a href='index.php?controller=client'><button class='btn btn-primary justify-content-center'>Retour à la liste</button></a></p>";
         
-            // var_dump($new);
+            // var_dump($client);
+
+            $this->displayPage();
+        }
+
+        public function displayClientDevis($clientDevis) {
+            $this->page .= "<h1>Liste des devis</h1>";
+            $this->page .= "<table class='table'>";
+            $this->page .= "<tr style='background-color: #e3f2fd'>";
+            $this->page .= "<th class='text-center'>Liste des devis</th>";
+            $this->page .= "</tr>";
+            foreach ($clientDevis as $devis) {
+                $this->page .= "<tr>" 
+                    . "<td><a href=index.php?controller=client&action=displayClientDevis&id="
+                    . $devis['id']
+                    . "'>"
+                    . $devis['id'] . "</a></td>"
+                    . "</tr>";
+            }
+            $this->page .= "</table>";
+            $this->page .= "<p><a href='index.php?controller=client&action=displayClientPage'><button class='btn btn-primary justify-content-center'>Retour</button></a></p>";
+        
+            
+            // var_dump($clientDevis);
 
             $this->displayPage();
         }
