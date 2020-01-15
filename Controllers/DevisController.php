@@ -79,6 +79,7 @@ class DevisController extends Controller
     public function valid(){
 
         $this->model->updateStatus();
+        $this->model->updateDevis();
         
         // header('location:index.php?controller=devis');
     }
