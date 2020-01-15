@@ -32,6 +32,11 @@ class DevisController extends Controller
         $this->view->displayMainPage($devisList);
     }
 
+    /**
+     * Displays the add Quote form
+     *
+     * @return void
+     */
     public function displayAddNewForm()
     {
         $clientList = $this->model->getClientsList();
@@ -41,7 +46,11 @@ class DevisController extends Controller
     }
     
     
-
+    /**
+     * Displays the form to edit a quote
+     *
+     * @return void
+     */
     public function displayEditForm()
     {
         if (isset($_GET) && !empty($_GET["devis"])) {
@@ -55,6 +64,11 @@ class DevisController extends Controller
 
     }
 
+    /**
+     * Deletes an item from the DB
+     *
+     * @return void
+     */
     public function deleteFromDB()
     {
         $devisId = $_GET['id'];
@@ -79,13 +93,22 @@ class DevisController extends Controller
         header('location:index.php?controller=devis');
     }
     
+    /**
+     * Display the form to validate the user Quote
+     *
+     * @return void
+     */
     public function validationDevis(){
             $id = $_GET['id'];
             $devis = $this->model->getDevis($id);
             $this->view->validationDevis($devis);
-
     }
 
+    /**
+     * Validate the quote and sets new statut to the DB
+     *
+     * @return void
+     */
     public function valid(){
 
         $this->model->updateStatus();
@@ -93,7 +116,4 @@ class DevisController extends Controller
         
         header('location:index.php?controller=devis');
     }
-   
-
-    
 }

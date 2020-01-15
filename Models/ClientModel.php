@@ -101,7 +101,7 @@
          * Get all Devis of clientID from the DB
          * 
          * @param int $clientID
-         * @return array $clientDevis
+         * @return array $devisList
          */
         public function getDevisFromClient($clientID)
         {
