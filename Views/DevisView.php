@@ -153,7 +153,7 @@
             $text .= "</option>";
             $this->page = str_replace('{client_list}' ,$text ,$this->page);
             
-            var_dump($devis);
+            // var_dump($devis);
             // Choix Remise Commerciale
             $this->page = str_replace('{remise_value}' ,$devis['devis']['remise_com'] ,$this->page);
             
@@ -162,8 +162,9 @@
 
             // Ajout de la liste d'articles'
             $text = "";
+
             foreach ($articleList as $article) {
-                if (in_array($article['nom'], $devis["liste_articles"])) {
+                if (in_array($article['nom'], array_keys($devis['liste_articles']))) {
                     $text .= "<p class='my-0'><input type='checkbox' checked id='article_".$article['id']."' name='articles[]' value='". $article['id'] ."'> <label for='article_".$article['id']."'>".$article['nom']." (Qté =". $article['qty'] .")"."</label></p>";
                 } else {
                     $text .= "<p class='my-0'><input type='checkbox' id='article_".$article['id']."' name='articles[]' value='". $article['id'] ."'> <label for='article_".$article['id']."'>".$article['nom']." (Qté =". $article['qty'] .")"."</label></p>";
