@@ -27,8 +27,7 @@ class ClientController extends Controller
      * @return void
      */
     public function addFormClient() {
-        $devisList = $this->model->getDevisList();
-        $this->view->addFormClient($devisList);
+        $this->view->displayAddFormClient();
     }
 
     /**
@@ -57,9 +56,8 @@ class ClientController extends Controller
      * @return void
      */
     public function updateFormClient() {
-        $devisList = $this->model->getDevisList();
         $client = $this->model->getClient();
-        $this->model->updateFormClient($client, $devisList);
+        $this->view->displayUpdateFormClient($client);
     }
 
     /**
@@ -71,4 +69,14 @@ class ClientController extends Controller
         $this->model->updateClientToDB();
         header('location: index.php?controller=client');
     }
+
+    /**
+         * Affichage du détail du client sélectionné
+         *
+         * @return void
+         */
+        public function detailClient() {
+            $client = $this->model->getClient();
+            $this->view->displayDetailClient($client);
+        }
 }
