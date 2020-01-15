@@ -16,7 +16,8 @@ class ClientController extends Controller
      *
      * @return void
      */
-    public function displayMainPage() {
+    public function displayMainPage()
+    {
         $clientsList = $this->model->getClientsList();
         $this->view->displayMainPage($clientsList);
     }
@@ -26,7 +27,8 @@ class ClientController extends Controller
      *
      * @return void
      */
-    public function addFormClient() {
+    public function addFormClient()
+    {
         $this->view->displayAddFormClient();
     }
 
@@ -35,7 +37,8 @@ class ClientController extends Controller
      *
      * @return void
      */
-    public function addClientToDB() {
+    public function addClientToDB()
+    {
         $this->model->addClientToDB();
         header('location: index.php?controller=client');
     }
@@ -45,7 +48,8 @@ class ClientController extends Controller
      *
      * @return void
      */
-    public function deleteClientFromDB() {
+    public function deleteClientFromDB()
+    {
         $this->model->deleteClientFromDB();
         header('location: index.php?controller=client');
     }
@@ -55,7 +59,8 @@ class ClientController extends Controller
      *
      * @return void
      */
-    public function updateFormClient() {
+    public function updateFormClient()
+    {
         $client = $this->model->getClient();
         $this->view->displayUpdateFormClient($client);
     }
@@ -65,25 +70,30 @@ class ClientController extends Controller
      *
      * @return void
      */
-    public function updateClientToDB() {
+    public function updateClientToDB()
+    {
         $this->model->updateClientToDB();
         header('location: index.php?controller=client');
     }
 
     /**
-         * Affichage du détail du client sélectionné
-         *
-         * @return void
-         */
-        public function displayClientPage() {
-            $client = $this->model->getClient();
-            $this->view->displayClientPage($client);
-        }
+     * Affichage du détail du client sélectionné
+     *
+     * @return void
+     */
+    public function displayClientPage()
+    {
+        $client = $this->model->getClient();
+        $clientDevis = $this->model->getDevisFromClient($client['id']);
+        $nbr_devis = count($clientDevis);
+        
+        $this->view->displayClientPage($client, $nbr_devis);
+    }
 
-        public function displayClientDevis() {
-            $client = $this->model->getClient();
-            $clientDevis = $this->model->getDevisFromClient($client['id']);
-            $this->view->displayClientDevis($clientDevis);
-            // var_dump($clientDevis);
-        }
+    public function displayClientDevis()
+    {
+        $client = $this->model->getClient();
+        $clientDevis = $this->model->getDevisFromClient($client['id']);
+        $this->view->displayClientDevis($clientDevis);
+    }
 }

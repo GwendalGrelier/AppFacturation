@@ -1,8 +1,14 @@
 <?php
+/*
 define('SERVER' ,"localhost");
 define('USER' ,"root");
 define('PASSWORD' ,"");
 define('BASE' ,"appfactures");
+*/
+define('SERVER' ,"sqlprive-pc2372-001.privatesql.ha.ovh.net");
+define('USER' ,"cefiidev961");
+define('PASSWORD' ,"9iGaAi88");
+define('BASE' ,"cefiidev961");
 
 try
 {
@@ -14,21 +20,30 @@ catch (Exception $e)
 {
     echo 'Erreur : ' . $e->getMessage();
 }
-
-$request = $connexion->prepare("SELECT adresse_mail,nom_societe  FROM client WHERE id=:id");
+$id= 2;
+$request = $connexion->prepare("SELECT adresse_electronique , nom_societe  FROM client WHERE id=:id");
 $request->bindParam(':id', $id);
 $result = $request->execute();
-$envoiMail = $request->fetchAll(PDO::FETCH_ASSOC);
+$client = $request->fetch(PDO::FETCH_ASSOC);
+//var_dump($client);
 
 $request2 = $connexion->prepare("SELECT id FROM devis");
-$request2->bindParam(':id', $id);
 $result2 = $request2->execute();
-$envoiMail2 = $request2->fetchAll(PDO::FETCH_ASSOC);
+$devis = $request2->fetch(PDO::FETCH_ASSOC);
+//var_dump($devis);
 
 $request3 = $connexion->prepare("SELECT * FROM article");
-$request3->bindParam(':id', $id);
 $result3 = $request3->execute();
-$envoiMail3 = $request3->fetchAll(PDO::FETCH_ASSOC);
+$article = $request3->fetch(PDO::FETCH_ASSOC);
+//var_dump($article);
+
+$adresse_electronique = $client['adresse_electronique'];
+$nom_societe = $client['nom_societe'];
+$id = $devis['id'];
+$qty = $article['qty'];
+$nom = $article['nom'];    
+$prix_u = $article['prix_u']; 
+
 
 /*
     Import des classes PHPMailer dans l’espace de nommage
@@ -44,14 +59,17 @@ $mail = new PHPMailer();
 /*
     Tentative d’envoi de mail
 */
+
 try {
     // Ajout des attributs
-    $mail->From = $client['adresse_electonique'];
-    $mail->FromName = $client['nom_societe'];
+    $mail->From = $adresse_electronique;
+    $mail->FromName = $nom_societe;
     $mail->Subject = 'Devis';
-    $mail->Body = "Votre devis n° ".$devis['id'] ."est en cours de validation. <br>
+    $mail->Body = "Votre devis n° ".$id ."est en cours de validation. <br>
                Article commandé: <br>
-               ".$article['qty']." " . $article['nom']."  pour le prix de ".$article['prix_u']." l'unité.
+               ".$qty." " . $nom."  pour le prix de ".$prix_u." l'unité. <br>
+               Pour valider votre devis: <br>
+               <a href='http://localhost/Test/projet_groupe/AppFacturation/index.php?controller=devis&action=validationDevis&id=$id'> Cliquez ici !</a>
                ";
 
 }
@@ -77,6 +95,5 @@ else{
     echo "Erreur, Votre mail n'est pas partit";
 }
 echo"<pre>";
-var_dump($mail);
-
+//var_dump($mail);
 
