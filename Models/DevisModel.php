@@ -146,7 +146,6 @@ class DevisModel extends Model
     }
 
     
-<<<<<<< HEAD
     class DevisModel extends Model {
 
         /**
@@ -230,13 +229,3 @@ class DevisModel extends Model
         }
        
     }
-=======
-        public function updateStatus(){
-            $id = $_POST['id'];
-            $request = $this->connexion->prepare("UPDATE devis SET statut_valider=1 WHERE id=:id");
-            $request->bindParam(':id', $id);
-            $request->execute();
-            
-        }
-    }
->>>>>>> 234f4fe8ed9c85ae8fb95190d5035e049c11e2f3
