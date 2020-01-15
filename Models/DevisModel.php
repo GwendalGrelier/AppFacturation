@@ -46,6 +46,7 @@ class DevisModel extends Model
             $devisList['client']['notes'] = $line['notes'];
 
             $devisList['liste_articles'][$line['nom_article']] = [
+                "name" => $line['nom_article'],
                 "qty" => $line['qty'],
                 "prix_u" => $line['prix_u']
             ];
@@ -63,10 +64,16 @@ class DevisModel extends Model
      */
     public function deleteDevis($devisID)
     {
+        // Deletes from association table
+        $request = $this->connexion->prepare("DELETE FROM liste_article WHERE id=:id");
+        $request->bindParam(':id', $devisID);
+        $result = $request->execute();
+        
+        // Deletes from devis table
         $request = $this->connexion->prepare("DELETE FROM devis WHERE id=:id");
         $request->bindParam(':id', $devisID);
-
         $result = $request->execute();
+
     }
 
     /**
@@ -103,7 +110,7 @@ class DevisModel extends Model
                 $remise_com = 0;
             }
 
-            if (!empty($_POST["remise_comm"])) {
+            if (!empty($_POST["taux_retard"])) {
                 $taux_retard = $_POST["taux_retard"];
             } else {
                 $taux_retard = 0;
@@ -130,9 +137,9 @@ class DevisModel extends Model
             $request->bindParam(':id_client', $id_client);
 
             $result = $request->execute();
+            var_dump($request);
 
             $new_devis_id = $this->connexion->lastInsertId();
-
             $articles = $_POST["articles"];
             $request = $this->connexion->prepare("INSERT INTO `liste_article` (`id`, `id_article`) VALUES (:id, :id_article)");
             $request->bindParam(':id', $new_devis_id);
@@ -141,16 +148,71 @@ class DevisModel extends Model
             foreach ($articles as $article) {
                 $id_article = $article;
                 $result = $request->execute();
-            }
+            } 
+            return $new_devis_id;
         }
     }
 
-       
-        public function updateStatus(){
-            $id = $_POST['id'];
-            $request = $this->connexion->prepare("UPDATE devis SET statut_valider=1 WHERE id=:id");
-            $request->bindParam(':id', $id);
-            $request->execute();
-            
-        }
+
+    public function updateStatus()
+    {
+        $id = $_POST['id'];
+        $request = $this->connexion->prepare("UPDATE devis SET statut_valider=1 WHERE id=:id");
+        $request->bindParam(':id', $id);
+        $request->execute();
     }
+
+    public function createDevisHTML($devisID)
+    {
+        $devis = $this->getDevis($devisID);
+        $text_Devis = file_get_contents("pages/forms/Devis.html");
+
+        $text_Devis = str_replace("{nom_societe}", $devis['client']['nom_client'], $text_Devis);
+        $text_Devis = str_replace("{adresse_postale}", $devis['client']['adresse_postale'], $text_Devis);
+        $text_Devis = str_replace("{id_devis}", $devis['devis']['id'], $text_Devis);
+        $text_Devis = str_replace("{date_creation}", $devis['devis']['date_creation'], $text_Devis);
+        
+        $text_articles = "";
+        foreach ($devis['liste_articles'] as $article) {
+
+            $text_articles .= "<tr>";
+            $text_articles .= "<td>";
+            $text_articles .= $article['qty'];
+            $text_articles .= "</td>";
+            $text_articles .= "<td>";
+            $text_articles .= $article['name'];
+            $text_articles .= "</td>";
+            $text_articles .= "<td>";
+            $text_articles .= $article['prix_u'];
+            $text_articles .= "</td>";
+            $text_articles .= "</tr>";
+        }
+        $text_Devis = str_replace("{liste_produit}", $text_articles, $text_Devis);
+        
+        // Compute subtotal price
+        $sub_total = 0;
+        foreach ($devis["liste_articles"] as $article) {
+            $sub_total += $article['qty'] * $article['prix_u'];
+        }
+        $text_Devis = str_replace("{sub_total_price}", $sub_total, $text_Devis);
+        
+        // Compute TVA
+        $tva_amount = $sub_total*0.2;
+        $text_Devis = str_replace("{tva}", $tva_amount, $text_Devis);
+        
+        // Remise en %
+        $remise = $devis['devis']['remise_com'];
+        $text_Devis = str_replace("{remise_com}", $remise, $text_Devis);
+        
+        $total_price = ($sub_total*1.2) - ($sub_total*1.2)*$remise/100;
+        // Compute Total Price
+        $text_Devis = str_replace("{total_price}", $total_price, $text_Devis);
+        
+        $text_Devis = str_replace("{date_echeance}", $devis['devis']['date_echeance'], $text_Devis);
+        $text_Devis = str_replace("{penalite}", $devis['devis']['taux_retard'], $text_Devis);
+
+        $file_name = "devis/devis_n_" . $devis['devis']['id'] . ".html"; 
+        file_put_contents($file_name, $text_Devis);
+    }
+
+}
