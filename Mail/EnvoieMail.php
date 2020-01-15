@@ -1,8 +1,14 @@
 <?php
+/*
 define('SERVER' ,"localhost");
 define('USER' ,"root");
 define('PASSWORD' ,"");
 define('BASE' ,"appfactures");
+*/
+define('SERVER' ,"sqlprive-pc2372-001.privatesql.ha.ovh.net");
+define('USER' ,"cefiidev961");
+define('PASSWORD' ,"9iGaAi88");
+define('BASE' ,"cefiidev961");
 
 try
 {
@@ -18,15 +24,25 @@ $id= 2;
 $request = $connexion->prepare("SELECT adresse_electronique , nom_societe  FROM client WHERE id=:id");
 $request->bindParam(':id', $id);
 $result = $request->execute();
-$client = $request->fetchAll(PDO::FETCH_ASSOC);
+$client = $request->fetch(PDO::FETCH_ASSOC);
+//var_dump($client);
 
-$request2 = $connexion->prepare("SELECT id=2 FROM devis");
+$request2 = $connexion->prepare("SELECT id FROM devis");
 $result2 = $request2->execute();
-$devis = $request2->fetchAll(PDO::FETCH_ASSOC);
+$devis = $request2->fetch(PDO::FETCH_ASSOC);
+//var_dump($devis);
 
 $request3 = $connexion->prepare("SELECT * FROM article");
 $result3 = $request3->execute();
-$article = $request3->fetchAll(PDO::FETCH_ASSOC);
+$article = $request3->fetch(PDO::FETCH_ASSOC);
+//var_dump($article);
+
+$adresse_electronique = $client['adresse_electronique'];
+$nom_societe = $client['nom_societe'];
+$id = $devis['id'];
+$qty = $article['qty'];
+$nom = $article['nom'];    
+$prix_u = $article['prix_u']; 
 
 
 /*
@@ -46,12 +62,14 @@ $mail = new PHPMailer();
 
 try {
     // Ajout des attributs
-    $mail->From = $_POST['adresse_electronique'];
-    $mail->FromName = $_POST['nom_societe'];
+    $mail->From = $adresse_electronique;
+    $mail->FromName = $nom_societe;
     $mail->Subject = 'Devis';
-    $mail->Body = "Votre devis n° ".$_POST['id'] ."est en cours de validation. <br>
+    $mail->Body = "Votre devis n° ".$id ."est en cours de validation. <br>
                Article commandé: <br>
-               ".$_POST['qty']." " . $_POST['nom']."  pour le prix de ".$_POST['prix_u']." l'unité.
+               ".$qty." " . $nom."  pour le prix de ".$prix_u." l'unité. <br>
+               Pour valider votre devis: <br>
+               <a href='http://localhost/Test/projet_groupe/AppFacturation/index.php?controller=devis&action=validationDevis&id=$id'> Cliquez ici !</a>
                ";
 
 }
@@ -77,6 +95,5 @@ else{
     echo "Erreur, Votre mail n'est pas partit";
 }
 echo"<pre>";
-var_dump($mail);
-
+//var_dump($mail);
 

@@ -94,5 +94,6 @@ class ArticleController extends Controller
     public function updateBDD(){
 
         $this->model->updateBDD();
+        header('location:index.php?controller=article');
     }
 }

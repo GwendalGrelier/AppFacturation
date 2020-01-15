@@ -32,6 +32,11 @@ class DevisController extends Controller
         $this->view->displayMainPage($devisList);
     }
 
+    /**
+     * Displays the add Quote form
+     *
+     * @return void
+     */
     public function displayAddNewForm()
     {
         $clientList = $this->model->getClientsList();
@@ -41,7 +46,11 @@ class DevisController extends Controller
     }
     
     
-
+    /**
+     * Displays the form to edit a quote
+     *
+     * @return void
+     */
     public function displayEditForm()
     {
         if (isset($_GET) && !empty($_GET["devis"])) {
@@ -55,6 +64,11 @@ class DevisController extends Controller
 
     }
 
+    /**
+     * Deletes an item from the DB
+     *
+     * @return void
+     */
     public function deleteFromDB()
     {
         $devisId = $_GET['id'];
@@ -62,27 +76,44 @@ class DevisController extends Controller
         header("Location: index.php?controller=devis");
     }
 
+    /**
+     * Adds a Quote to the database
+     * 
+     * The Quote is created, added to the database and calls
+     * model->createDevisHTML() which returns the HTML code for the quote
+     * 
+     * This text is then send by email to the client.
+     *
+     * @return void
+     */
     public function addToDB()
     {
         $idDevis = $this->model->addToDB();
-        $this->model->createDevisHTML($idDevis);
+        $textDevis = $this->model->createDevisHTML($idDevis);
         header('location:index.php?controller=devis');
     }
     
+    /**
+     * Display the form to validate the user Quote
+     *
+     * @return void
+     */
     public function validationDevis(){
             $id = $_GET['id'];
             $devis = $this->model->getDevis($id);
             $this->view->validationDevis($devis);
-
     }
 
+    /**
+     * Validate the quote and sets new statut to the DB
+     *
+     * @return void
+     */
     public function valid(){
 
         $this->model->updateStatus();
+        $this->model->updateDevis();
         
-        // header('location:index.php?controller=devis');
+        header('location:index.php?controller=devis');
     }
-   
-
-    
 }

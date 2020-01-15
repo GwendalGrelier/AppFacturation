@@ -7,6 +7,10 @@
     include "Controllers/DevisController.php";
     include "Controllers/ClientController.php";
     include "Controllers/SecurityController.php";
+<<<<<<< HEAD
+=======
+    
+>>>>>>> 26a185530b95b36936aa21575740747e15d012b6
 
     session_start();
 
@@ -70,6 +74,7 @@
             // Check Controller
             $final_controller = "DevisController";
             $final_action = "displayMainPage";
+            // If user
             if (in_array($requested_controller, array_keys($authorizedClientActions)) && in_array($requested_action, $authorizedClientActions[$requested_controller])) {
                 $final_controller = $requested_controller;
                 $final_action = $requested_action;    
