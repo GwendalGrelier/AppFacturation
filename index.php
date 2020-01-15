@@ -6,6 +6,10 @@
     include "Controllers/ArticleController.php";
     include "Controllers/DevisController.php";
     include "Controllers/ClientController.php";
+<<<<<<< HEAD
+=======
+    
+>>>>>>> 69ea4f58af0f6a5f3fd3bf0014356e288f593b09
 
     session_start();
 
