@@ -14,21 +14,20 @@ catch (Exception $e)
 {
     echo 'Erreur : ' . $e->getMessage();
 }
-
-$request = $connexion->prepare("SELECT adresse_mail,nom_societe  FROM client WHERE id=:id");
+$id= 2;
+$request = $connexion->prepare("SELECT adresse_electronique , nom_societe  FROM client WHERE id=:id");
 $request->bindParam(':id', $id);
 $result = $request->execute();
-$envoiMail = $request->fetchAll(PDO::FETCH_ASSOC);
+$client = $request->fetchAll(PDO::FETCH_ASSOC);
 
-$request2 = $connexion->prepare("SELECT id FROM devis");
-$request2->bindParam(':id', $id);
+$request2 = $connexion->prepare("SELECT id=2 FROM devis");
 $result2 = $request2->execute();
-$envoiMail2 = $request2->fetchAll(PDO::FETCH_ASSOC);
+$devis = $request2->fetchAll(PDO::FETCH_ASSOC);
 
 $request3 = $connexion->prepare("SELECT * FROM article");
-$request3->bindParam(':id', $id);
 $result3 = $request3->execute();
-$envoiMail3 = $request3->fetchAll(PDO::FETCH_ASSOC);
+$article = $request3->fetchAll(PDO::FETCH_ASSOC);
+
 
 /*
     Import des classes PHPMailer dans l’espace de nommage
@@ -44,14 +43,15 @@ $mail = new PHPMailer();
 /*
     Tentative d’envoi de mail
 */
+
 try {
     // Ajout des attributs
-    $mail->From = $client['adresse_electonique'];
-    $mail->FromName = $client['nom_societe'];
+    $mail->From = $_POST['adresse_electronique'];
+    $mail->FromName = $_POST['nom_societe'];
     $mail->Subject = 'Devis';
-    $mail->Body = "Votre devis n° ".$devis['id'] ."est en cours de validation. <br>
+    $mail->Body = "Votre devis n° ".$_POST['id'] ."est en cours de validation. <br>
                Article commandé: <br>
-               ".$article['qty']." " . $article['nom']."  pour le prix de ".$article['prix_u']." l'unité.
+               ".$_POST['qty']." " . $_POST['nom']."  pour le prix de ".$_POST['prix_u']." l'unité.
                ";
 
 }
