@@ -91,7 +91,7 @@ class DevisController extends Controller
         $this->model->updateStatus();
         $this->model->updateDevis();
         
-        // header('location:index.php?controller=devis');
+        header('location:index.php?controller=devis');
     }
    
 
