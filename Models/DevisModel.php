@@ -137,7 +137,6 @@ class DevisModel extends Model
             $request->bindParam(':id_client', $id_client);
 
             $result = $request->execute();
-            var_dump($request);
 
             $new_devis_id = $this->connexion->lastInsertId();
             $articles = $_POST["articles"];
