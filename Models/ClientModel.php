@@ -15,14 +15,18 @@
             $siret = $_POST['siret'];
             $notes = $_POST['notes'];
             $nom_societe = $_POST['nom_societe'];
+            $password = "1234";
+            $rank = 2; // No admin privileges
 
-            $requete = $this->connexion->prepare("INSERT INTO client VALUES (NULL, :adresse_postale, :adresse_electronique, :n_tva, :siret, :notes, :nom_societe)");
+            $requete = $this->connexion->prepare("INSERT INTO client VALUES (NULL, :adresse_postale, :adresse_electronique, :n_tva, :siret, :notes, :nom_societe, :rank, :password)");
             $requete->bindParam(':adresse_postale', $adresse_postale);
             $requete->bindParam(':adresse_electronique', $adresse_electronique);
             $requete->bindParam(':n_tva', $n_tva);
             $requete->bindParam(':siret', $siret);
             $requete->bindParam(':notes', $notes);
             $requete->bindParam(':nom_societe', $nom_societe);
+            $requete->bindParam(':password', $password);
+            $requete->bindParam(':rank', $rank);
             $result = $requete->execute();
         }
 

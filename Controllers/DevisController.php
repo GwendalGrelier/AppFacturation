@@ -55,13 +55,18 @@ class DevisController extends Controller
 
     }
 
-
+    public function deleteFromDB()
+    {
+        $devisId = $_GET['id'];
+        $this->model->deleteDevis($devisId);
+        header("Location: index.php?controller=devis");
+    }
 
     public function addToDB()
     {
-        $this->model->addToDB();
-        $this->model->createDevisPDF();
-        // header('location:index.php?controller=devis');
+        $idDevis = $this->model->addToDB();
+        $this->model->createDevisHTML($idDevis);
+        header('location:index.php?controller=devis');
     }
     
     public function validationDevis(){

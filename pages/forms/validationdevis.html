@@ -1,7 +1,7 @@
 <h2>Bonjour {societe}</h2>
 <p>Veuillez transmettre votre Devis {numero} daté et signer</p>
-<form action="index.php?controller=devis&action={action}" method="POST">
-<div class="form-group">
+<form action="index.php?controller=devis&action={action}" method="POST" enctype="multipart/form-data">
+<div  class="form-control-file">
     <input type="file" id="devis" name="devis">
 </div>
 <div class="form-group">

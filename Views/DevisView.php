@@ -78,7 +78,9 @@
                     $this->page .= "<a class='btn btn-primary text-light'>Créer facture</a>";
                 } else {
                     $this->page .= "<p class='btn btn-secondary bg-secondary btn-wait-custom'>En attente de validation</p>";
-                    $this->page .= "<p><a class='btn btn-warning text-light' href='index.php?controller=devis&action=displayEditForm&devis=". $devis['devis']['id'] ."'>Editer</a></p>";
+                    $this->page .= "<p><a class='btn btn-warning text-light' href='index.php?controller=devis&action=displayEditForm&devis=". $devis['devis']['id'] ."'>Editer</a>";
+                    $this->page .= "<a class='btn btn-primary text-light ml-1' target='_blank' href='devis/devis_n_". $devis['devis']['id'] .".html'>Voir Devis</a></p>";
+                    $this->page .= "<a class='btn btn-danger text-light' href='index.php?controller=devis&action=deleteFromDB&id=". $devis['devis']['id'] ."'>Supprimer Devis</a>";
                 }
 
 
