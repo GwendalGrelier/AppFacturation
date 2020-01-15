@@ -85,5 +85,37 @@ class DevisController extends Controller
         
     }
 
+    public function displayEditForm()
+    {
+        if (isset($_GET) && !empty($_GET["devis"])) {
+            $devisId = $_GET['devis'];
+            $devis = $this->model->getDevis($devisId);
+            $articleList = $this->model->getArticleList();
+            $this->view->displayEditForm($devis, $articleList);
+        } else {
+            header("Location: index.php?controller=devis");
+        }
+
+    }
+
+
+
+    public function addToDB()
+    {
+        $this->model->addToDB();
+        header('location:index.php?controller=devis');
+    }
     
+    public function validationDevis(){
+            $id = $_GET['id'];
+            $devis = $this->model->getDevis($id);
+            $this->view->validationDevis($devis);
+
+    }
+
+    public function valid(){
+
+        $this->model->updateStatus();
+        header('location:index.php?controller=devis');
+    }
 }

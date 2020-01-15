@@ -2,7 +2,14 @@
     
     class ArticleModel extends Model {
 
-   
+        
+
+            /*
+            Delete in table Article
+             
+            @return void
+
+            */
         public function deleteArticle() {
 
             $id = $_GET['id'];
@@ -12,6 +19,13 @@
             $result = $requete->execute();
             var_dump($result);
         }
+
+        /*
+            add in table Article
+             
+            @return void
+
+            */
 
         public function addBDD() {
 
@@ -26,7 +40,12 @@
             $result = $requete->execute();
             
         }
-        
+        /*
+            extraction de la  table Article
+             
+            @return array $result
+
+            */
         public function getArticle(){
             $id = $_GET['id'];
 
@@ -36,7 +55,12 @@
             $result = $requete->fetch(PDO::FETCH_ASSOC);
             return $result;
         }
+/*
+            update in table article 
+             
+            @return void
 
+            */
         public function updateBDD(){
             $name = $_POST['name'];
             $id = $_POST['id'];

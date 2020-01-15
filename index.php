@@ -6,7 +6,11 @@
     include "Controllers/ArticleController.php";
     include "Controllers/DevisController.php";
     include "Controllers/ClientController.php";
+<<<<<<< HEAD
     include "Controllers/EnvoieController.php";
+=======
+    include "Controllers/SecurityController.php";
+>>>>>>> 234f4fe8ed9c85ae8fb95190d5035e049c11e2f3
 
     session_start();
 
@@ -27,12 +31,11 @@
         $controller_list[$i]['methodList'] = get_class_methods($controller_list[$i]["className"]);
     }
       
-    
 
 
     // Get requested controller
-    // Default is NewsController
-    $requested_controller = "ArticleController";
+    // Default is ArticleController
+    $requested_controller = "DevisController";
     if (isset($_GET) && !empty($_GET["controller"])) {
         foreach ($controller_list as $controller) {
             if ($_GET["controller"] == $controller['name']) {
@@ -43,21 +46,54 @@
     }
 
     // Get requested action
-    $action = "displayMainPage";
+    $requested_action = "displayMainPage";
     if (isset($_GET) && !empty($_GET["action"])) {
         foreach ($controller_list as $controller) {
             if (in_array($_GET["action"], $controller['methodList'])) {
-                $action = $_GET["action"];
+                $requested_action = $_GET["action"];
             }
         }      
     }
     
-    
-    
-   
+    // Set Action for visitors
+    $authorizedVisitorActions = [
+        "SecurityController" => ['displayMainPage', 'login']
+    ];
 
-    $controller = new $requested_controller();
-    $controller->$action();
+    // Set Action for Clients
+    $authorizedClientActions = [
+        "SecurityController" => ["logout"],
+        "DevisController" => ["displayMainPage"],
+    ];
+
+    // Deal with authorizations
+   if (isset($_SESSION) && !empty($_SESSION["user"])) {
+       $rank = $_SESSION["user"]['rank'];
+
+        if ($rank != 1) {
+            // Check Controller
+            $final_controller = "DevisController";
+            $final_action = "displayMainPage";
+            if (in_array($requested_controller, array_keys($authorizedClientActions)) && in_array($requested_action, $authorizedClientActions[$requested_controller])) {
+                $final_controller = $requested_controller;
+                $final_action = $requested_action;    
+            }            
+        } else {
+            // if admin
+            $final_controller = $requested_controller;
+            $final_action = $requested_action;    
+        }
+    } else {
+        $final_controller = "SecurityController";
+        $final_action = "displayMainPage";
+        if (in_array($requested_controller, array_keys($authorizedVisitorActions)) && in_array($requested_action, $authorizedVisitorActions[$requested_controller])) {
+            $final_controller = $requested_controller;
+            $final_action = $requested_action;    
+        } 
+   }
+   
+    $controller = new $final_controller();
+    $controller->$final_action();
 
 
 

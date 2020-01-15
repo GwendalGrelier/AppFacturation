@@ -1,0 +1,56 @@
+
+
+<div class="row">
+	<!-- ---------- -->
+	<!-- Formulaire -->
+	<!-- ---------- -->
+	<form class="col-12 col-md-7" method="POST" action="index.php?controller=devis&action={action}">
+
+		<!-- Input ID -->
+		<div class="form-group row" {display_ID}>
+			<label class="col-md-3 col-form-label" for="id" >Id Devis :</label>
+			<input class="col-md-9 form-control" id="id" name="id" type="text" value='{id_devis}' readonly>
+		</div>
+
+		<!-- Input Client -->
+		<div class="form-group row">
+			<label class="col-md-3 col-form-label">Choix du client :</label>
+			<select class="col-md-9 custom-select" name="client" required>
+				
+				{client_list}
+			</select>
+		</div>
+
+		<!-- Input Remise Commercial -->
+		<div class="form-group row">
+			<label class="col-md-3 col-form-label" for="remise_comm">Remise Commercial (%) :</label>
+			<input id="remise_comm" name="remise_comm" class="col-md-9 form-control" type="text" placeholder="Ex: 10" value="{remise_value}">
+		</div>
+	
+		<!-- Input Taux Retard -->
+		<div class="form-group row">
+			<label class="col-md-3 col-form-label" for="taux_retard">Taux Retard (%) :</label>
+			<input id="taux_retard" name="taux_retard" class="col-md-9 form-control" type="text" placeholder="Ex: 5" value="{taux_retard}">
+		</div>
+		
+		
+		<!-- Input Date Echeance -->
+		<div class="form-group row">
+			<label class="col-md-3 col-form-label" for="date_echeance">Date d'echéance prévisionnelle :</label>
+			<input id="date_echeance" name="date_echeance" class="col-md-9 form-control" type="date" min="{date_du_jour}" value="{date_echeance}" required>
+		</div>
+		
+		<h3>Liste d'articles</h3>
+		<div class="btn-group-toggle">
+			{article_list}
+			<!-- <input type="checkbox" name="check_list[]" value="PHP"><label>PHP</label><br/> -->
+		</div>
+
+		
+
+		<!-- Submit Button -->
+		<div class="form-group row">
+			<button type="submit" class="offset-md-3 btn btn-success">Soumettre</button>
+		</div>
+	</form>
+</div>
