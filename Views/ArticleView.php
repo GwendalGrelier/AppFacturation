@@ -6,6 +6,15 @@
      */
     class ArticleView extends View {
 
+
+        /**
+     * Affichage de la page d'accueil
+     * Liste des infos
+     *
+     * @param array $articlelist
+     * @return void
+     */
+
         public function displayHome($articlelist) {
             $this->page .= "<h1>Welcome Here Article </h1>";
             // if (isset($_SESSION['user'])) {
@@ -48,6 +57,13 @@
             $this->displayPage();
         }
 
+
+        /**
+     * Affichage du formulaire de saisie d'une nouvelle info
+     *
+     * @return void
+     */
+
         public function addArticle() {
             $this->page .= "<h1>J'ajoute un Article dans le stock via le formulaire</h1>";
             $this->page .= file_get_contents('pages/forms/formAddArticle.html');
@@ -58,6 +74,14 @@
             $this->page = str_replace('{prix_u}','',$this->page);
             $this->displayPage();
         }
+
+        /**
+     * Affichage du formalaire contenant l'info à modifier
+     *
+     * @param array $article
+     * @return void
+     */
+
         public function displayUpdateArticle($article) {
             $this->page .= "<h1>Modification de l'article selectionné via un formulaire</h1>";
             $this->page .= file_get_contents('pages/forms/formAddArticle.html');

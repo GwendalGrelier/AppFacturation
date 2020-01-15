@@ -151,7 +151,6 @@ class DevisModel extends Model
             $request = $this->connexion->prepare("UPDATE devis SET statut_valider=1 WHERE id=:id");
             $request->bindParam(':id', $id);
             $request->execute();
-
             
         }
     }
