@@ -71,6 +71,7 @@
             // Check Controller
             $final_controller = "DevisController";
             $final_action = "displayMainPage";
+            // If user
             if (in_array($requested_controller, array_keys($authorizedClientActions)) && in_array($requested_action, $authorizedClientActions[$requested_controller])) {
                 $final_controller = $requested_controller;
                 $final_action = $requested_action;    
