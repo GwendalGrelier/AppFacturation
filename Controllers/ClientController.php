@@ -83,6 +83,12 @@ class ClientController extends Controller
      */
     public function displayClientPage()
     {
+        $id = $_GET['id'];
+
+        if ($_SESSION['user']['id'] != $id) {
+            header("Location: index.php");
+        }
+
         $client = $this->model->getClient();
         $clientDevis = $this->model->getDevisFromClient($client['id']);
         $nbr_devis = count($clientDevis);

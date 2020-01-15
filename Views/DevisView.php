@@ -75,7 +75,7 @@
                 // Btn creation facture
                 $this->page .= '<td>';
                 if ($devis['devis']['statut_valider']) {
-                    $this->page .= "<a class='btn btn-primary text-light'>Créer facture</a>";
+                    $this->page .= "<a class='btn btn-primary text-light' href='index.php?controller=devis&action=creationFacture". $devis['devis']['id'] ."'>Créer facture</a>";
                 } else {
                     $this->page .= "<p class='btn btn-secondary bg-secondary btn-wait-custom'>En attente de validation</p>";
                     $this->page .= "<p><a class='btn btn-warning text-light' href='index.php?controller=devis&action=displayEditForm&devis=". $devis['devis']['id'] ."'>Editer</a>";

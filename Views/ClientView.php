@@ -39,7 +39,7 @@
                 foreach($clientsList as $client) {
                     $this->page .= "<tr>" 
                     . "<td>" . $client['id'] . "</td>"
-                    . "<td><a href=index.php?controller=client&action=displayClientPage&id="
+                    . "<td><a href='index.php?controller=client&action=displayClientPage&id="
                     . $client['id']
                     . "'>"
                     . $client['nom_societe'] . "</a></td>"
