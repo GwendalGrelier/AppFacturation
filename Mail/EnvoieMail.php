@@ -1,4 +1,35 @@
 <?php
+define('SERVER' ,"localhost");
+define('USER' ,"root");
+define('PASSWORD' ,"");
+define('BASE' ,"appfactures");
+
+try
+{
+    $connexion = new PDO("mysql:host=".SERVER.";dbname=".BASE, USER, PASSWORD);
+    $connexion-> exec("SET NAMES 'UTF8'");
+}
+
+catch (Exception $e)
+{
+    echo 'Erreur : ' . $e->getMessage();
+}
+
+$request = $connexion->prepare("SELECT adresse_mail,nom_societe  FROM client WHERE id=:id");
+$request->bindParam(':id', $id);
+$result = $request->execute();
+$envoiMail = $request->fetchAll(PDO::FETCH_ASSOC);
+
+$request2 = $connexion->prepare("SELECT id FROM devis");
+$request2->bindParam(':id', $id);
+$result2 = $request2->execute();
+$envoiMail2 = $request2->fetchAll(PDO::FETCH_ASSOC);
+
+$request3 = $connexion->prepare("SELECT * FROM article");
+$request3->bindParam(':id', $id);
+$result3 = $request3->execute();
+$envoiMail3 = $request3->fetchAll(PDO::FETCH_ASSOC);
+
 /*
     Import des classes PHPMailer dans l’espace de nommage
 */
@@ -14,13 +45,14 @@ $mail = new PHPMailer();
     Tentative d’envoi de mail
 */
 try {
-// Ajout des attributs
-$mail->From = "$client['adresse_mail']";
-$mail->FromName = "$client['nom_societe']";
-$mail->Subject = 'Devis';
-$mail->Body = "Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-               Qui libero error odio dolorum quisquam minima! Suscipit qui labore obcaecati libero doloribus
-               odio nulla facere eveniet consequuntur esse! Fugiat, reprehenderit velit.";
+    // Ajout des attributs
+    $mail->From = $client['adresse_electonique'];
+    $mail->FromName = $client['nom_societe'];
+    $mail->Subject = 'Devis';
+    $mail->Body = "Votre devis n° ".$devis['id'] ."est en cours de validation. <br>
+               Article commandé: <br>
+               ".$article['qty']." " . $article['nom']."  pour le prix de ".$article['prix_u']." l'unité.
+               ";
 
 }
 
@@ -28,8 +60,8 @@ $mail->Body = "Lorem ipsum dolor sit, amet consectetur adipisicing elit.
     Traitement de l’exception levée en cas d’erreur
 */
 catch (Exception $e) {
-echo 'Message non envoyé';
-echo 'Erreur: ' . $mail->ErrorInfo;
+    echo 'Message non envoyé';
+    echo 'Erreur: ' . $mail->ErrorInfo;
 }
 // Envoi du mail
 $envoiOK= $mail->Send();
