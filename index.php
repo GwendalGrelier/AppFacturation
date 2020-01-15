@@ -7,6 +7,10 @@
     include "Controllers/DevisController.php";
     include "Controllers/ClientController.php";
     include "Controllers/SecurityController.php";
+<<<<<<< HEAD
+=======
+    
+>>>>>>> 3e68f0e34a131469664ffac7e09134d2e7d62074
 
     session_start();
 
@@ -59,7 +63,7 @@
     // Set Action for Clients
     $authorizedClientActions = [
         "SecurityController" => ["logout"],
-        "DevisController" => ["displayMainPage"],
+        "ClientController" => ["displayMainPage", "displayClientPage", "getDevisFromClient", "displayClientDevis", "getClient"],
     ];
 
     // Deal with authorizations
@@ -68,7 +72,7 @@
 
         if ($rank != 1) {
             // Check Controller
-            $final_controller = "DevisController";
+            $final_controller = "ClientController";
             $final_action = "displayMainPage";
             // If user
             if (in_array($requested_controller, array_keys($authorizedClientActions)) && in_array($requested_action, $authorizedClientActions[$requested_controller])) {
