@@ -7,10 +7,7 @@
     include "Controllers/DevisController.php";
     include "Controllers/ClientController.php";
     include "Controllers/SecurityController.php";
-<<<<<<< HEAD
-=======
     
->>>>>>> 3e68f0e34a131469664ffac7e09134d2e7d62074
 
     session_start();
 
