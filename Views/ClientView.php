@@ -39,7 +39,10 @@
                 foreach($clientsList as $client) {
                     $this->page .= "<tr>" 
                     . "<td>" . $client['id'] . "</td>"
-                    . "<td><a href=index.php?controller=client&action=displayDetailClient&id=". $client['id'] . "'>" . $client['nom_societe'] . "</a></td>"
+                    . "<td><a href=index.php?controller=client&action=displayClientPage&id="
+                    . $client['id']
+                    . "'>"
+                    . $client['nom_societe'] . "</a></td>"
                     . "<td>" . $client['adresse_postale'] . "</td>"
                     . "<td>" . $client['adresse_electronique'] . "</td>"
                     . "<td>" . $client['n_tva'] . "</td>"
@@ -126,7 +129,7 @@
             $this->displayPage();
         }
 
-        public function displayDetailClient($client) {
+        public function displayClientPage($client) {
             $this->page .= "<h1>Détail du client</h1>";
             $this->page .= "<table class='table'>";
             $this->page .= "<tr style='background-color: #e3f2fd'>";
@@ -136,6 +139,8 @@
             $this->page .= "<th class='text-center'>N° TVA</th>";
             $this->page .= "<th class='text-center'>N° SIRET</th>";
             $this->page .= "<th class='text-center'>Notes</th>";
+            // $this->page .= "<th class='text-center'>Liste des devis</th>";
+            // $this->page .= "<th class='text-center'>Liste des factures</th>";
             $this->page .= "</tr>";
             $this->page .= "<tr>" 
                     . "<td>" . $client['nom_societe'] . "</td>"
@@ -144,6 +149,8 @@
                     . "<td>" . $client['n_tva'] . "</td>"
                     . "<td>" . $client['siret'] . "</td>"
                     . "<td>" . $client['notes'] . "</td>"
+                    // . "<td>" . $clientDevis['id'] . "</td>"
+                    // . "<td>" . $clientFactures['id'] . "</td>"
                     . "</tr>";
             $this->page .= "</table>";
             $this->page .= "<p><a href='index.php?controller=client'><button class='btn btn-primary justify-content-center'>Retour à la liste</button></a></p>";

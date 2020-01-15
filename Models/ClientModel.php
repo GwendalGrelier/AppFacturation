@@ -92,4 +92,55 @@
 
             return $client;
         }
+
+        /**
+     * Get all Devis of clientID from the DB
+     * 
+     * @param int $clientID
+     * @return array $clientDevis
+     */
+    public function getDevis($client)
+    {
+        $request = $this->connexion->prepare("SELECT d.*, l.id_article, 
+            a.nom as nom_article, a.qty, a.prix_u, 
+            c.nom_societe as nom_client, c.id as id_client, c.adresse_postale, c.adresse_electronique, 
+            c.n_tva, c.siret, c.notes 
+            FROM `devis` as d 
+            JOIN liste_article as l ON d.id = l.id 
+            JOIN client as c ON d.`id_client` = c.id 
+            JOIN article as a ON a.id = l.id_article 
+            WHERE id_client = :id");
+
+        $request->bindParam(':id', $client);
+
+        $result = $request->execute();
+        $result = $request->fetchAll(PDO::FETCH_ASSOC);
+        $clientDevis = [];
+
+        foreach ($result as $line) {
+            $clientDevis['devis']['id'] = $line['id'];
+            $clientDevis['devis']['remise_com'] = $line['remise_com'];
+            $clientDevis['devis']['taux_retard'] = $line['taux_retard'];
+            $clientDevis['devis']['num_facture'] = $line['num_facture'];
+            $clientDevis['devis']['date_echeance'] = $line['date_echeance'];
+            $clientDevis['devis']['date_creation'] = $line['date_creation'];
+            $clientDevis['devis']['date_validation'] = $line['date_validation'];
+            $clientDevis['devis']['statut_valider'] = $line['statut_valider'];
+
+            $clientDevis['client']['id_client'] = $line['id_client'];
+            $clientDevis['client']['nom_client'] = $line['nom_client'];
+            $clientDevis['client']['adresse_postale'] = $line['adresse_postale'];
+            $clientDevis['client']['adresse_electronique'] = $line['adresse_electronique'];
+            $clientDevis['client']['n_tva'] = $line['n_tva'];
+            $clientDevis['client']['siret'] = $line['siret'];
+            $clientDevis['client']['notes'] = $line['notes'];
+
+            $clientDevis['liste_articles'][$line['nom_article']] = [
+                "qty" => $line['qty'],
+                "prix_u" => $line['prix_u']
+            ];
+        }
+
+        return $clientDevis;
+    }
     }
