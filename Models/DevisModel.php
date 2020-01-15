@@ -213,6 +213,8 @@ class DevisModel extends Model
 
         $file_name = "devis/devis_n_" . $devis['devis']['id'] . ".html"; 
         file_put_contents($file_name, $text_Devis);
+        
+        return $text_Devis;
     }
 
 }
