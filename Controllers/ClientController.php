@@ -75,8 +75,14 @@ class ClientController extends Controller
          *
          * @return void
          */
-        public function detailClient() {
+        public function displayClientPage() {
             $client = $this->model->getClient();
-            $this->view->displayDetailClient($client);
+            $this->view->displayClientPage($client);
+        }
+
+        public function getClientDevis() {
+            $client = $this->model->getClient();
+            $clientDevis = $this->model->getDevis($client);
+            $this->view->displayClientPage($client, $clientDevis);
         }
 }
