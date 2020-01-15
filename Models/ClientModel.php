@@ -105,6 +105,7 @@
          */
         public function getDevisFromClient($clientID)
         {
+            
             $request = $this->connexion->prepare("SELECT d.*, l.id_article, 
                             a.nom as nom_article, a.qty, a.prix_u, 
                             c.nom_societe as nom_client, c.id as id_client, c.adresse_postale, c.adresse_electronique, 
@@ -115,10 +116,13 @@
                             JOIN article as a ON a.id = l.id_article 
                             WHERE id_client = :id");    
 
+
             
             $request->bindParam(':id', $clientID);
+            $result = $request->execute();
             $result = $request->fetchAll(PDO::FETCH_ASSOC);
 
+            // var_dump($result);
             // var_dump($request->errorInfo());
             // var_dump($result);
             

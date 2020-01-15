@@ -158,8 +158,8 @@ class DevisModel extends Model
         $id = $_POST['id'];
         $request = $this->connexion->prepare("UPDATE devis SET statut_valider=1 WHERE id=:id");
         $request->bindParam(':id', $id);
-        var_dump($_POST);
-        var_dump($_FILES);
+        // var_dump($_POST);
+        // var_dump($_FILES);
         $request->execute();
 
       
@@ -174,8 +174,8 @@ class DevisModel extends Model
             $nom_fichier = $_FILES['devis']['name'];
             
             $emplacement_destination = 'devis\\'. $nom_fichier;
-            var_dump($emplacement_temporaire);
-            var_dump($emplacement_destination);
+            // var_dump($emplacement_temporaire);
+            // var_dump($emplacement_destination);
             
             $result = move_uploaded_file ( $emplacement_temporaire , $emplacement_destination );
           

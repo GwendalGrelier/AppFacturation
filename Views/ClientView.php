@@ -129,7 +129,7 @@
             $this->displayPage();
         }
 
-        public function displayClientPage($client) {
+        public function displayClientPage($client, $nbr_devis) {
             $this->page .= "<h1>Détail du client</h1>";
             $this->page .= "<table class='table'>";
             $this->page .= "<tr style='background-color: #e3f2fd'>";
@@ -149,10 +149,10 @@
                     . "<td>" . $client['n_tva'] . "</td>"
                     . "<td>" . $client['siret'] . "</td>"
                     . "<td>" . $client['notes'] . "</td>"
-                    . "<td><a href=index.php?controller=client&action=displayClientDevis&id="
+                    . "<td><a href='index.php?controller=client&action=displayClientDevis&id="
                     . $client['id']
                     . "'>"
-                    . $client['id'] . "</a></td>"
+                    . $nbr_devis . " Devis trouvés</a></td>"
                     // . "<td>" . $clientFactures['id'] . "</td>"
                     . "</tr>";
             $this->page .= "</table>";
@@ -169,12 +169,12 @@
             $this->page .= "<tr style='background-color: #e3f2fd'>";
             $this->page .= "<th class='text-center'>Liste des devis</th>";
             $this->page .= "</tr>";
+
             foreach ($clientDevis as $devis) {
+                
                 $this->page .= "<tr>" 
-                    . "<td><a href=index.php?controller=client&action=displayClientDevis&id="
-                    . $devis['id']
-                    . "'>"
-                    . $devis['id'] . "</a></td>"
+                    . "<td><a href='devis/devis_n_" . $devis['devis']['id']. ".html'>Devis n° "
+                    . $devis['devis']['id'] . "</a></td>"
                     . "</tr>";
             }
             $this->page .= "</table>";
