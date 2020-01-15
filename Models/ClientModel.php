@@ -119,8 +119,8 @@
             $request->bindParam(':id', $clientID);
             $result = $request->fetchAll(PDO::FETCH_ASSOC);
 
-            var_dump($request->errorInfo());
-            var_dump($result);
+            // var_dump($request->errorInfo());
+            // var_dump($result);
             
             $devisList = [];
             $devisIdList = array_unique(array_column($result, "id"));
