@@ -12,26 +12,14 @@
             $this->page = file_get_contents('pages/parts/head.html');
             $this->page .= file_get_contents('pages/parts/nav.html');
 
-            // Build menu links
-            $links = [];
-            if (isset($_SESSION) && !empty($_SESSION["user"]) && $_SESSION['user']['rank'] < 3) {
-                $links[] = array("active" => "category", "link" => "index.php?controller=category", "name" => "Categories");
-                $links[] = array("active" => "user", "link" => "index.php?controller=user", "name" => "Users");
-            }
-            $links_text = "";
-            foreach ($links as $link) {
-                $links_text .= "<li class='nav-item'><a class='nav-link {active-" .$link['active']. "}' "
-                ."href='" .$link['link']. "'>" .$link['name']. "</a></li>";
-            }
-            $this->page = str_replace("{nav_links}", $links_text, $this->page);
-
+            
             // Set the login/logout btn
             if (isset($_SESSION) && !empty($_SESSION["user"])) {
-                $text = "<p class='display-5 text-light ml-auto mt-3 mr-3'>Logged in as : <a href=index.php?controller=user&action=displayUserPage&user=". $_SESSION['user']['id'] .">" . $_SESSION['user']["username"] ." (" . $_SESSION['user']['rank_name'] . ")</a></p><a href='index.php?action=logout&controller=security'>Logout</a>";
+                $text = "<a class='nav-link' href='index.php?controller=security&action=logout'>Logout</a>";
             } else {
-                $text = "<a class='ml-auto' href='index.php?action=displayLoginForm&controller=security'>Login</a>";
+                $text = "<a class='nav-link' href='index.php?controller=security'>Login</a>";
             }
-            $this->page = str_replace("{connexionBtn}", $text, $this->page);
+            $this->page = str_replace("{login_button}", $text, $this->page);
 
 
             // Set active class for the nav

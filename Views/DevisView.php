@@ -141,7 +141,7 @@
         public function displayEditForm($devis, $articleList)
         {
             $this->page .= "<h1>Edition d'un devis</h1>";
-            $this->page = file_get_contents("pages/forms/formDevis.html");
+            $this->page .= file_get_contents("pages/forms/formDevis.html");
 
             $this->page = str_replace('{action}' ,'editToDB' ,$this->page);
             $this->page = str_replace('{display_ID}' ,'' ,$this->page);
